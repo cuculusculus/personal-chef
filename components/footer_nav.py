@@ -7,7 +7,7 @@ from config.constants import (
     PAGE_FAVORITE,
     PAGE_HISTORY
 )
-
+st.write(st.__version__)
 def render_footer_nav():
 
     with st.container(key="footer_nav"):
