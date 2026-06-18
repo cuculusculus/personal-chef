@@ -18,6 +18,7 @@ st.set_page_config(
 )
 
 #apply_styles()
+st.write(st.__version__)
 initialize_session()
 
 # ルーティング
