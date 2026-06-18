@@ -1,19 +1,62 @@
 # components/footer_nav.py
-from streamlit_option_menu import option_menu
 import streamlit as st
+
+from config.constants import (
+    PAGE_RECIPE,
+    PAGE_STOCK,
+    PAGE_FAVORITE,
+    PAGE_HISTORY
+)
 
 def render_footer_nav():
 
-    selected = option_menu(
-        menu_title=None,
-        options=["Home", "Stock", "Fav", "History"],
-        icons=[
-            "house-fill",
-            "basket",
-            "bookmark-star",
-            "clock-history"
-        ],
-        orientation="horizontal"
-    )
+    st.markdown("""
+    <style>
+    .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
 
-    st.write(selected)
+        height: 60px;
+        background: white;
+        border-top: 1px solid #ddd;
+        z-index: 999999;
+
+        display: flex;
+    }
+
+    .bottom-nav button {
+        flex: 1;
+        border: none;
+        background: transparent;
+        font-size: 20px;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+    st.markdown('<div class="bottom-nav">', unsafe_allow_html=True)
+
+    c1, c2, c3, c4 = st.columns(4)
+
+    with c1:
+        if st.button("🏠"):
+            st.session_state.page = PAGE_RECIPE
+            st.rerun()
+
+    with c2:
+        if st.button("🥬"):
+            st.session_state.page = PAGE_STOCK
+            st.rerun()
+
+    with c3:
+        if st.button("⭐"):
+            st.session_state.page = PAGE_FAVORITE
+            st.rerun()
+
+    with c4:
+        if st.button("🕒"):
+            st.session_state.page = PAGE_HISTORY
+            st.rerun()
+
+    st.markdown("</div>", unsafe_allow_html=True)
