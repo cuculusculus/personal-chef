@@ -34,7 +34,7 @@ def render_footer_nav():
                     "",
                     icon=config["icon"],
                     type=btn_type,
-                    use_container_width=True
+                   
                 ):
                     if st.session_state.page != config["page"]:
                         st.session_state.page = config["page"]
