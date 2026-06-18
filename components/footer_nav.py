@@ -5,7 +5,7 @@ import streamlit as st
 from config.constants import *
 
 def render_footer_nav():
-    st.error("footer start")
+
     pages = [
         PAGE_RECIPE,
         PAGE_STOCK,
@@ -14,10 +14,10 @@ def render_footer_nav():
     ]
 
     current_idx = pages.index(st.session_state.page)
-    st.write("before option menu")
+
     selected = option_menu(
         menu_title=None,
-        options=[" ", "  ", "   ", "    "],
+        options=["Home", "Stock", "Fav", "History"],
         icons=[
             "house-fill",
             "basket",
@@ -25,34 +25,7 @@ def render_footer_nav():
             "clock-history"
         ],
         default_index=current_idx,
-        orientation="horizontal",
-        styles={
-            "container": {
-                "padding": "0!important",
-                "margin": "0!important",
-                "background-color": "#ffffff",
-                "border-top": "1px solid #ddd",
-                "position": "fixed",
-                "bottom": "0",
-                "left": "0",
-                "width": "100%",
-                "z-index": "999999"
-            },
-            "nav-link": {
-                "text-align": "center",
-                "margin": "0px",
-                "--hover-color": "#f5f5f5"
-            },
-            "icon": {
-                "font-size": "22px"
-            }
-        }
+        orientation="horizontal"
     )
-    st.write("after option menu")
-    idx = [" ", "  ", "   ", "    "].index(selected)
 
-    target = pages[idx]
-
-    if target != st.session_state.page:
-        st.session_state.page = target
-        st.rerun()
+    st.write(selected)
