@@ -9,18 +9,30 @@ def render_footer_nav():
 
     st.markdown("""
     <style>
-    .nav-pills{
-        position:fixed !important;
-        bottom:0 !important;
-        left:0 !important;
-        width:100% !important;
-        background:white !important;
-        z-index:999999 !important;
+
+    /* option_menu全体 */
+    ul.nav {
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+
+        background: white !important;
+        border-top: 1px solid #ddd !important;
+
+        z-index: 999999 !important;
+        margin: 0 !important;
+        padding: 0 !important;
     }
+
+    /* 各ボタン均等割り */
+    ul.nav li {
+        flex: 1 !important;
+        text-align: center !important;
+    }
+
     </style>
     """, unsafe_allow_html=True)
-
-    st.error("footer loaded")
 
     pages = [
         PAGE_RECIPE,
@@ -44,4 +56,15 @@ def render_footer_nav():
         orientation="horizontal"
     )
 
-    st.write("selected =", selected)
+    page_map = {
+        "Home": PAGE_RECIPE,
+        "Stock": PAGE_STOCK,
+        "Fav": PAGE_FAVORITE,
+        "History": PAGE_HISTORY
+    }
+
+    target = page_map[selected]
+
+    if target != st.session_state.page:
+        st.session_state.page = target
+        st.rerun()
