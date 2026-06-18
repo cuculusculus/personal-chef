@@ -68,3 +68,7 @@ def render_footer_nav():
     if target != st.session_state.page:
         st.session_state.page = target
         st.rerun()
+st.markdown("""
+---
+footer end
+""")
