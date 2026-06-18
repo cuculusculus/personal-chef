@@ -5,22 +5,37 @@ import streamlit as st
 def render_footer_nav():
 
     st.markdown("""
-    <style>
+<style>
 
-    /* option_menuのnavを強制固定 */
+/* option_menu本体 */
 
-    nav.navbar {
-        position: fixed !important;
-        bottom: 0 !important;
-        left: 0 !important;
-        width: 100% !important;
-        z-index: 999999 !important;
-        background: white !important;
-        border-top: 1px solid #ddd !important;
-    }
+ul.nav.nav-pills.mb-auto.nav-justified {
 
-    </style>
-    """, unsafe_allow_html=True)
+    position: fixed !important;
+
+    bottom: 0 !important;
+    left: 0 !important;
+
+    width: 100vw !important;
+
+    background: red !important;
+    border-top: 1px solid #ddd !important;
+
+    z-index: 999999 !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* 4分割 */
+
+ul.nav.nav-pills.mb-auto.nav-justified > li {
+    flex: 1 !important;
+    text-align: center !important;
+}
+
+</style>
+""", unsafe_allow_html=True)
 
     option_menu(
         None,
