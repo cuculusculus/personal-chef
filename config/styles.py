@@ -29,7 +29,7 @@ div[data-testid="stDecoration"] {
 }
 
 .stApp {
-    padding-bottom: 100px;
+    padding-bottom: 80px;
 }
 
 
