@@ -1,4 +1,5 @@
 # components/footer_nav.py
+
 import streamlit as st
 
 from config.constants import (
@@ -10,29 +11,30 @@ from config.constants import (
 
 def render_footer_nav():
 
-    with st.container(key="footer_nav"):
+    st.divider()
 
-        cols = st.columns(4)
+    cols = st.columns([1,1,1,1])
 
-        nav_config = [
-            {"page": PAGE_RECIPE, "icon": ":material/restaurant:"},
-            {"page": PAGE_STOCK, "icon": ":material/kitchen:"},
-            {"page": PAGE_FAVORITE, "icon": ":material/bookmark_star:"},
-            {"page": PAGE_HISTORY, "icon": ":material/history:"}
-        ]
+    pages = [
+        PAGE_RECIPE,
+        PAGE_STOCK,
+        PAGE_FAVORITE,
+        PAGE_HISTORY
+    ]
 
-        for col, config in zip(cols, nav_config):
-            with col:
+    labels = [
+        "🍳",
+        "🥬",
+        "⭐",
+        "🕒"
+    ]
 
-                btn_type = (
-                    "primary"
-                    if st.session_state.page == config["page"]
-                    else "secondary"
-                )
-
-                if st.button(
-                    "R",
-                    key=f"nav_{config['page']}"
-                ):
-                    st.session_state.page = config["page"]
-                    st.rerun()
+    for col, page, label in zip(cols, pages, labels):
+        with col:
+            if st.button(
+                label,
+                use_container_width=True,
+                key=f"nav_{page}"
+            ):
+                st.session_state.page = page
+                st.rerun()
