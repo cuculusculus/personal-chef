@@ -13,6 +13,7 @@ def render_footer_nav():
 
     current = st.session_state.page
 
+    # CSSで完全固定フッター
     st.markdown("""
     <style>
     .bottom-nav {
@@ -21,46 +22,45 @@ def render_footer_nav():
         left: 0;
         width: 100%;
         height: 64px;
-        background: #ffffff;
+        background: #fff;
         border-top: 1px solid #e6e6e6;
         display: flex;
         z-index: 999999;
     }
 
-    .nav-btn {
+    .nav-item {
         flex: 1;
-        border: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .nav-item button {
+        width: 100%;
+        height: 64px;
         background: transparent;
+        border: none;
         font-size: 24px;
-        padding: 6px 0;
-        transition: all 0.2s ease;
     }
 
-    .nav-btn.active {
+    .active {
         color: #ff4b4b;
-        transform: translateY(-2px);
-    }
-
-    .nav-btn:active {
-        transform: scale(0.92);
     }
     </style>
     """, unsafe_allow_html=True)
 
-    cols = st.columns(4)
-
+    # フッター開始
     st.markdown('<div class="bottom-nav">', unsafe_allow_html=True)
+
+    cols = st.columns(4)
 
     for i, (page, icon) in enumerate(nav):
         with cols[i]:
             is_active = (current == page)
 
-            btn_style = "primary" if is_active else "secondary"
-
             if st.button(
                 icon,
                 key=f"nav_{page}",
-                type=btn_style,
                 use_container_width=True
             ):
                 st.session_state.page = page
