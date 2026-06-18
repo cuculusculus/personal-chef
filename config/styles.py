@@ -10,6 +10,12 @@ APP_CSS = """
 .stApp {
     padding-bottom: 80px;
 }
+#MainMenu,
+.stDeployButton,
+[data-testid="stToolbar"],
+div[data-testid="stDecoration"] {
+    display:none !important;
+}
 </style>
 """
 
