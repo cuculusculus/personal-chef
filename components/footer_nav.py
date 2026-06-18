@@ -13,15 +13,7 @@ def render_footer_nav():
             "bookmark-star",
             "clock-history"
         ],
-        orientation="horizontal",
-        styles={
-            "container": {
-                "position": "fixed",
-                "bottom": "0",
-                "left": "0",
-                "width": "100%",
-                "background-color": "red",
-                "z-index": "999999"
-            }
-        }
+        orientation="horizontal"
     )
+
+    st.write(selected)
