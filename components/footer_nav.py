@@ -29,12 +29,11 @@ def render_footer_nav():
     ],
     default_index=current_idx,
     orientation="horizontal",
-
     styles={
         "container": {
-            "background-color": "red",
+            "background-color": "white",
+            "border-top": "1px solid #ddd",
         }
     }
 )
-
     st.write("selected =", selected)
