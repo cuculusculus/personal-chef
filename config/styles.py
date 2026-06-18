@@ -34,45 +34,38 @@ div[data-testid="stDecoration"] {
 
 /* ---------- フッター固定 ---------- */
 
-div.st-key-footer_nav {
-    position: fixed !important;
-    bottom: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 75px !important;
-    background-color: #ffffff !important;
-    border-top: 1px solid #e0e0e0 !important;
-    z-index: 999999 !important;
-    padding: 10px !important;
-    box-shadow: 0 -4px 12px rgba(0,0,0,0.05) !important;
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    height: 70px;
+    display: flex;
+    width: 100%;
+
+    background: white;
+    border-top: 1px solid #ddd;
 }
 
-/* ---------- フッターボタン ---------- */
+/* ★ここが最重要 */
+.bottom-nav button {
+    flex: 1 !important;
+    min-width: 0 !important;   /* ←これ必須 */
 
-div.st-key-footer_nav [data-testid="column"] {
-    width: 25% !important;
-    flex: 1 1 25% !important;
-    min-width: 25% !important;
+    border: none !important;
+    background: transparent !important;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
 }
 
-div.st-key-footer_nav button {
-    height: 55px !important;
-    padding: 0 !important;
-
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-}
-/* ---------- フッターアイコン ---------- */
-/* ボタン内のアイコンサイズ */
-div.st-key-footer_nav button span {
-    font-size: 36px !important;
-}
-/* ボタン内のラベルサイズ */
-div.st-key-footer_nav button p {
-    font-size: 12px !important;
-    font-weight: 600 !important;
-    margin: 0 !important;
+/* Streamlit内部span対策 */
+.bottom-nav button * {
+    min-width: 0 !important;
 }
 /* ---------- 共通設定 ---------- */
 /* 全体文字折返し */
