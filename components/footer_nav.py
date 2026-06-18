@@ -12,6 +12,7 @@ def render_footer_nav():
 
     st.markdown("""
     <style>
+
     .bottom-nav {
         position: fixed;
         bottom: 0;
@@ -27,36 +28,31 @@ def render_footer_nav():
     }
 
     .bottom-nav button {
-        flex: 1;
-        border: none;
-        background: transparent;
-        font-size: 20px;
+        flex: 1 !important;
+        border: none !important;
+        background: transparent !important;
+        font-size: 22px;
     }
+
     </style>
     """, unsafe_allow_html=True)
 
     st.markdown('<div class="bottom-nav">', unsafe_allow_html=True)
 
-    c1, c2, c3, c4 = st.columns(4)
+    if st.button("🏠"):
+        st.session_state.page = PAGE_RECIPE
+        st.rerun()
 
-    with c1:
-        if st.button("🏠"):
-            st.session_state.page = PAGE_RECIPE
-            st.rerun()
+    if st.button("🥬"):
+        st.session_state.page = PAGE_STOCK
+        st.rerun()
 
-    with c2:
-        if st.button("🥬"):
-            st.session_state.page = PAGE_STOCK
-            st.rerun()
+    if st.button("⭐"):
+        st.session_state.page = PAGE_FAVORITE
+        st.rerun()
 
-    with c3:
-        if st.button("⭐"):
-            st.session_state.page = PAGE_FAVORITE
-            st.rerun()
+    if st.button("🕒"):
+        st.session_state.page = PAGE_HISTORY
+        st.rerun()
 
-    with c4:
-        if st.button("🕒"):
-            st.session_state.page = PAGE_HISTORY
-            st.rerun()
-
-    st.markdown("</div>", unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
