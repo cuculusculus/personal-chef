@@ -7,6 +7,8 @@ from config.constants import *
 
 def render_footer_nav():
 
+    st.error("footer loaded")
+
     pages = [
         PAGE_RECIPE,
         PAGE_STOCK,
@@ -18,7 +20,7 @@ def render_footer_nav():
 
     selected = option_menu(
         menu_title=None,
-        options=[" ", "  ", "   ", "    "],
+        options=["Home", "Stock", "Fav", "History"],
         icons=[
             "house-fill",
             "basket",
@@ -26,24 +28,7 @@ def render_footer_nav():
             "clock-history"
         ],
         default_index=current_idx,
-        orientation="horizontal",
-        styles={
-            "container": {
-                "position": "fixed",
-                "bottom": "0",
-                "left": "0",
-                "width": "100%",
-                "z-index": "999999",
-                "background-color": "#fff",
-                "border-top": "1px solid #ddd",
-            }
-        }
+        orientation="horizontal"
     )
 
-    idx = [" ", "  ", "   ", "    "].index(selected)
-
-    target = pages[idx]
-
-    if target != st.session_state.page:
-        st.session_state.page = target
-        st.rerun()
+    st.write("selected =", selected)
