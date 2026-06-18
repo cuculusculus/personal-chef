@@ -34,37 +34,31 @@ div[data-testid="stDecoration"] {
 
 /* ---------- フッター固定 ---------- */
 
-.bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-
-    height: 70px;
-    display: flex;
-    width: 100%;
-
-    background: white;
-    border-top: 1px solid #ddd;
+div.st-key-footer_nav {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    background: white !important;
+    border-top: 1px solid #ddd !important;
+    z-index: 9999 !important;
 }
 
-/* ★ここが最重要 */
-.bottom-nav button {
-    flex: 1 !important;
-    min-width: 0 !important;   /* ←これ必須 */
-
-    border: none !important;
-    background: transparent !important;
-
-    display: flex;
-    flex-direction: column;
-
-    align-items: center;
-    justify-content: center;
+/* columnsコンテナ */
+div.st-key-footer_nav [data-testid="stHorizontalBlock"] {
+    display: flex !important;
+    flex-wrap: nowrap !important;
 }
 
-/* Streamlit内部span対策 */
-.bottom-nav button * {
+/* 各列 */
+div.st-key-footer_nav [data-testid="column"] {
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+}
+
+/* ボタン */
+div.st-key-footer_nav button {
+    width: 100% !important;
     min-width: 0 !important;
 }
 /* ---------- 共通設定 ---------- */
