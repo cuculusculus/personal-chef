@@ -42,7 +42,7 @@ div[data-testid="stDecoration"] {
 
 </style>
 """
-
+st.write(st.__version__)
 
 def apply_styles():
 
