@@ -13,46 +13,47 @@ def render_footer_nav():
     st.markdown("""
     <style>
 
-    .bottom-nav {
-        position: fixed;
+    /* 下固定バー */
+    div[data-testid="stHorizontalBlock"] {
+        position: fixed !important;
         bottom: 0;
         left: 0;
         right: 0;
-
         height: 60px;
         background: white;
         border-top: 1px solid #ddd;
         z-index: 999999;
-
-        display: flex;
     }
 
-    .bottom-nav button {
-        flex: 1 !important;
+    /* ボタン均等化 */
+    div[data-testid="stButton"] > button {
+        width: 100% !important;
         border: none !important;
         background: transparent !important;
-        font-size: 22px;
+        font-size: 22px !important;
     }
 
     </style>
     """, unsafe_allow_html=True)
 
-    st.markdown('<div class="bottom-nav">', unsafe_allow_html=True)
+    col1, col2, col3, col4 = st.columns(4)
 
-    if st.button("🏠"):
-        st.session_state.page = PAGE_RECIPE
-        st.rerun()
+    with col1:
+        if st.button("🏠"):
+            st.session_state.page = PAGE_RECIPE
+            st.rerun()
 
-    if st.button("🥬"):
-        st.session_state.page = PAGE_STOCK
-        st.rerun()
+    with col2:
+        if st.button("🥬"):
+            st.session_state.page = PAGE_STOCK
+            st.rerun()
 
-    if st.button("⭐"):
-        st.session_state.page = PAGE_FAVORITE
-        st.rerun()
+    with col3:
+        if st.button("⭐"):
+            st.session_state.page = PAGE_FAVORITE
+            st.rerun()
 
-    if st.button("🕒"):
-        st.session_state.page = PAGE_HISTORY
-        st.rerun()
-
-    st.markdown('</div>', unsafe_allow_html=True)
+    with col4:
+        if st.button("🕒"):
+            st.session_state.page = PAGE_HISTORY
+            st.rerun()
