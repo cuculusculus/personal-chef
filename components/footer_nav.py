@@ -42,7 +42,19 @@ def render_footer_nav():
     ]
 
     current_idx = pages.index(st.session_state.page)
-
+    st.markdown("""
+    <style>
+    
+    ul {
+        border: 3px solid red !important;
+    }
+    
+    nav {
+        border: 3px solid blue !important;
+    }
+    
+    </style>
+""", unsafe_allow_html=True)
     selected = option_menu(
         menu_title=None,
         options=["Home", "Stock", "Fav", "History"],
