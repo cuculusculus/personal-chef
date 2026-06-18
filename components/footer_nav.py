@@ -19,16 +19,22 @@ def render_footer_nav():
     current_idx = pages.index(st.session_state.page)
 
     selected = option_menu(
-        menu_title=None,
-        options=["Home", "Stock", "Fav", "History"],
-        icons=[
-            "house-fill",
-            "basket",
-            "bookmark-star",
-            "clock-history"
-        ],
-        default_index=current_idx,
-        orientation="horizontal"
-    )
+    menu_title=None,
+    options=["Home", "Stock", "Fav", "History"],
+    icons=[
+        "house-fill",
+        "basket",
+        "bookmark-star",
+        "clock-history"
+    ],
+    default_index=current_idx,
+    orientation="horizontal",
+
+    styles={
+        "container": {
+            "background-color": "red",
+        }
+    }
+)
 
     st.write("selected =", selected)
