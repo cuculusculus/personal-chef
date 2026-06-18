@@ -5,7 +5,7 @@ import streamlit as st
 from config.constants import *
 
 def render_footer_nav():
-
+    st.error("footer start")
     pages = [
         PAGE_RECIPE,
         PAGE_STOCK,
