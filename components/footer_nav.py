@@ -31,9 +31,7 @@ def render_footer_nav():
                 )
 
                 if st.button(
-                    "",
-                    icon=config["icon"],
-                    type=btn_type,
+                    "R",
                     key=f"nav_{config['page']}"
                 ):
                     st.session_state.page = config["page"]
