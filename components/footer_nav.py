@@ -24,7 +24,6 @@ def render_footer_nav():
             "bookmark-star",
             "clock-history"
         ],
-        default_index=current_idx,
         orientation="horizontal"
     )
 
