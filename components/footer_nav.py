@@ -1,19 +1,11 @@
 # components/footer_nav.py
 
+from streamlit_option_menu import option_menu
 import streamlit as st
 
-from config.constants import (
-    PAGE_RECIPE,
-    PAGE_STOCK,
-    PAGE_FAVORITE,
-    PAGE_HISTORY
-)
+from config.constants import *
 
 def render_footer_nav():
-
-    st.divider()
-
-    cols = st.columns([1,1,1,1])
 
     pages = [
         PAGE_RECIPE,
@@ -22,19 +14,36 @@ def render_footer_nav():
         PAGE_HISTORY
     ]
 
-    labels = [
-        "🍳",
-        "🥬",
-        "⭐",
-        "🕒"
-    ]
+    current_idx = pages.index(st.session_state.page)
 
-    for col, page, label in zip(cols, pages, labels):
-        with col:
-            if st.button(
-                label,
-                use_container_width=True,
-                key=f"nav_{page}"
-            ):
-                st.session_state.page = page
-                st.rerun()
+    selected = option_menu(
+        menu_title=None,
+        options=[" ", "  ", "   ", "    "],
+        icons=[
+            "house-fill",
+            "basket",
+            "bookmark-star",
+            "clock-history"
+        ],
+        default_index=current_idx,
+        orientation="horizontal",
+        styles={
+            "container": {
+                "position": "fixed",
+                "bottom": "0",
+                "left": "0",
+                "width": "100%",
+                "z-index": "999999",
+                "background-color": "#fff",
+                "border-top": "1px solid #ddd",
+            }
+        }
+    )
+
+    idx = [" ", "  ", "   ", "    "].index(selected)
+
+    target = pages[idx]
+
+    if target != st.session_state.page:
+        st.session_state.page = target
+        st.rerun()
