@@ -14,6 +14,27 @@ def render_footer_nav():
 
         cols = st.columns(4)
 
-        for i, col in enumerate(cols):
+        nav_config = [
+            {"page": PAGE_RECIPE, "icon": ":material/restaurant:"},
+            {"page": PAGE_STOCK, "icon": ":material/kitchen:"},
+            {"page": PAGE_FAVORITE, "icon": ":material/bookmark_star:"},
+            {"page": PAGE_HISTORY, "icon": ":material/history:"}
+        ]
+
+        for col, config in zip(cols, nav_config):
             with col:
-                st.write(f"列{i}")
+
+                btn_type = (
+                    "primary"
+                    if st.session_state.page == config["page"]
+                    else "secondary"
+                )
+
+                if st.button(
+                    "",
+                    icon=config["icon"],
+                    type=btn_type,
+                    key=f"nav_{config['page']}"
+                ):
+                    st.session_state.page = config["page"]
+                    st.rerun()
