@@ -28,7 +28,7 @@ ROUTES = {
     PAGE_FAVORITE: render_favorite_page,
     PAGE_HISTORY: render_history_page,
 }
-render_footer_nav()
+
 # 描画
 ROUTES.get(
     st.session_state.page,
@@ -37,4 +37,4 @@ ROUTES.get(
 
 # # --- 完全固定の下部ナビゲーション ---
 
-#render_footer_nav()
+render_footer_nav()
