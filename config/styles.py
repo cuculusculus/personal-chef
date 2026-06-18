@@ -32,35 +32,7 @@ div[data-testid="stDecoration"] {
     padding-bottom: 100px;
 }
 
-/* ---------- フッター固定 ---------- */
 
-div.st-key-footer_nav {
-    position: fixed !important;
-    bottom: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    background: white !important;
-    border-top: 1px solid #ddd !important;
-    z-index: 9999 !important;
-}
-
-/* columnsコンテナ */
-div.st-key-footer_nav [data-testid="stHorizontalBlock"] {
-    display: flex !important;
-    flex-wrap: nowrap !important;
-}
-
-/* 各列 */
-div.st-key-footer_nav [data-testid="column"] {
-    flex: 1 1 0 !important;
-    min-width: 0 !important;
-}
-
-/* ボタン */
-div.st-key-footer_nav button {
-    width: 100% !important;
-    min-width: 0 !important;
-}
 /* ---------- 共通設定 ---------- */
 /* 全体文字折返し */
 * {
