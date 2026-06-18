@@ -22,3 +22,5 @@ Thumbs.db
 data/favorite_recipes.json
 data/my_ingredients.json
 data/recipe_history.json
+
+_backup/
