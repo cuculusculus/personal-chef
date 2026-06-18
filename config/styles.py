@@ -7,7 +7,9 @@ APP_CSS = """
 .block-container {
     padding-bottom: 80px !important;
 }
-
+.stApp {
+    padding-bottom: 80px;
+}
 </style>
 """
 
