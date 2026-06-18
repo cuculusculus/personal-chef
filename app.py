@@ -17,7 +17,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-apply_styles()
+#apply_styles()
 
 initialize_session()
 
