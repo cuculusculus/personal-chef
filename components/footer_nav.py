@@ -14,7 +14,7 @@ def render_footer_nav():
     ]
 
     current_idx = pages.index(st.session_state.page)
-
+    st.write("before option menu")
     selected = option_menu(
         menu_title=None,
         options=[" ", "  ", "   ", "    "],
@@ -48,7 +48,7 @@ def render_footer_nav():
             }
         }
     )
-
+    st.write("after option menu")
     idx = [" ", "  ", "   ", "    "].index(selected)
 
     target = pages[idx]
