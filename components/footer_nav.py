@@ -1,20 +1,47 @@
 # components/footer_nav.py
 import streamlit as st
+from config.constants import *
 
 def render_footer_nav():
 
-    st.write("FOOTER DEBUG START")
+    nav = [
+        (PAGE_RECIPE, "🍳"),
+        (PAGE_STOCK, "🧊"),
+        (PAGE_FAVORITE, "⭐"),
+        (PAGE_HISTORY, "📁"),
+    ]
 
-    if st.button("🏠"):
-        st.write("HOME CLICK")
+    st.markdown("""
+    <style>
+    .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 64px;
+        background: white;
+        border-top: 1px solid #ddd;
+        display: flex;
+        z-index: 999999;
+    }
 
-    if st.button("🥬"):
-        st.write("STOCK CLICK")
+    .bottom-nav button {
+        flex: 1;
+        border: none;
+        background: transparent;
+        font-size: 22px;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
-    if st.button("⭐"):
-        st.write("FAV CLICK")
+    st.markdown('<div class="bottom-nav">', unsafe_allow_html=True)
 
-    if st.button("🕒"):
-        st.write("HISTORY CLICK")
+    cols = st.columns(4)
 
-    st.write("FOOTER DEBUG END")
+    for i, (page, icon) in enumerate(nav):
+        with cols[i]:
+            if st.button(icon, key=f"nav_{i}"):
+                st.session_state.page = page
+                st.rerun()
+
+    st.markdown('</div>', unsafe_allow_html=True)
