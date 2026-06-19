@@ -20,6 +20,14 @@ st.set_page_config(
 initialize_session()
 
 apply_styles()
+# =========================================================
+# 【ここを追加】自動遷移の障害物（古いURLの文字）をクリアする
+# =========================================================
+# もしセッション状態のページと、URLのパラメータにズレがある場合（ボタンでページが切り替えられたとき）
+if "page" in st.query_params and st.query_params["page"] != st.session_state.page:
+    # URLの末尾のパラメータを現在のセッションページ（"recipe"など）に自動で書き換えます
+    st.query_params["page"] = st.session_state.page
+# =========================================================
 
 # 通常のルーティング
 ROUTES = {
