@@ -10,15 +10,10 @@ from config.constants import (
 
 def render_footer_nav():
     """
-    Streamlit Cloud強制バッジ(Created by / Hosted)を完全に避けるため、
-    最下部から55px浮かせた位置に等幅配置する絶対タップ可能フッター。
+    スマホでの絶対横並び・最下部固定デザインを維持したまま、
+    昔のセッション書き換えロジック（URLを汚さない安全方式）を完全復活させた決定版。
     """
     current_page = st.session_state.get("page", PAGE_RECIPE)
-
-    query_params = st.query_params
-    if "page" in query_params and query_params["page"] != current_page:
-        st.session_state.page = query_params["page"]
-        st.rerun()
 
     nav_config = [
         {"page": PAGE_RECIPE, "icon": "restaurant"},
@@ -27,42 +22,42 @@ def render_footer_nav():
         {"page": PAGE_HISTORY, "icon": "history"},
     ]
 
+    # 1. 4つのカスタムボタン（HTML）を出力
+    # ※ hrefを使ったURLジャンプを廃止し、クリックされたらStreamlit側にイベントを飛ばす特殊ボタンにします
     links_html = ""
     for item in nav_config:
         is_active = "active" if current_page == item["page"] else ""
         links_html += f"""
-        <a href="?page={item['page']}" target="_self" class="nav-item {is_active}">
+        <button onclick="window.parent.postMessage({{type: 'nav_click', page: '{item['page']}'}}, '*')" class="nav-item {is_active}">
             <span class="stIconMaterial">{item['icon']}</span>
-        </a>
+        </button>
         """
 
+    # 2. ページ最下部から55px浮かせた位置に固定するCSS（デザインはそのまま）
     st.html(f"""
     <div class="custom-sticky-footer">
         {links_html}
     </div>
+    <script>
+    // HTMLボタンがクリックされたら、Streamlitの隠しボタン（下のPythonロジック）を代わりにクリックさせる仕掛け
+    window.addEventListener('message', function(e) {{
+        if (e.data.type === 'nav_click') {{
+            var btn = window.parent.document.getElementById('hidden_btn_' + e.data.page);
+            if (btn) btn.click();
+        }}
+    }});
+    </script>
     <style>
-    /* パディング崩れ防止 */
-    .custom-sticky-footer, .custom-sticky-footer * {{
-        box-sizing: border-box !important;
-    }}
-
-    /* フッターコンテナをバッジの上に配置 */
+    .custom-sticky-footer, .custom-sticky-footer * {{ box-sizing: border-box !important; }}
     .custom-sticky-footer {{
         position: fixed !important;
-        
-        /* 
-           【ここが超重要】 
-           最下部（bottom: 0）にすると強制バッジの下に潜り込んで押せなくなります。
-           バッジの高さである「55px」の位置に浮かせることで、バッジとの重なりを完全に回避します。
-        */
-        bottom: 45px !important; 
-        
+        bottom: 55px !important; /* バッジを避けて浮かせる */
         left: 0 !important;
         width: 100% !important;
         height: 60px !important;
         background-color: #ffffff !important;
         border-top: 1px solid #e0e0e0 !important;
-        border-bottom: 1px solid #e0e0e0 !important; /* 上下を線で挟んで独立したバーに見せる */
+        border-bottom: 1px solid #e0e0e0 !important;
         display: flex !important;
         flex-direction: row !important;
         flex-wrap: nowrap !important;
@@ -73,8 +68,7 @@ def render_footer_nav():
         padding-right: 8px !important;
         box-shadow: 0 -4px 12px rgba(0,0,0,0.08) !important;
     }}
-
-    /* 各ボタンの領域（画面幅いっぱいに4等分） */
+    /* HTMLボタンの見た目をStreamlit標準のボタン風に調整 */
     .custom-sticky-footer .nav-item {{
         flex: 1 1 25% !important;
         min-width: 0 !important;
@@ -82,36 +76,35 @@ def render_footer_nav():
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        text-decoration: none !important;
+        border: none !important;
+        background: none !important;
+        cursor: pointer !important;
         color: #757575 !important;
         transition: background-color 0.2s, color 0.2s;
     }}
-
-    .custom-sticky-footer .nav-item:active {{
-        background-color: #f1f3f4 !important;
-    }}
-
-    /* アクティブ（現在選択中）のボタンのスタイル */
+    .custom-sticky-footer .nav-item:active {{ background-color: #f1f3f4 !important; }}
     .custom-sticky-footer .nav-item.active {{
-        color: #ff4b4b !important; /* お好みでテーマカラー #f2b544 に変更してください */
-        border-bottom: 3px solid #ff4b4b !important;
+        color: #f2b544 !important; /* config.tomlのオレンジに同期 */
+        border-bottom: 3px solid #f2b544 !important;
         background-color: #fdfaf9 !important;
     }}
-
-    /* マテリアルアイコンのスタイル調整 */
     .custom-sticky-footer .stIconMaterial {{
-        font-size: 30px !important;
-        font-family: "Material Symbols Outlined", "Material Symbols Rounded", sans-serif !important;
-        font-weight: normal !important;
-        font-style: normal !important;
-        line-height: 1 !important;
-        letter-spacing: normal !important;
-        text-transform: none !important;
-        display: inline-block !important;
-        white-space: nowrap !important;
-        word-wrap: normal !important;
-        direction: ltr !important;
-        -webkit-font-smoothing: antialiased !important;
+        font-size: 26px !important;
+        font-family: "Material Symbols Outlined", sans-serif !important;
     }}
     </style>
     """)
+
+    # 3. 昔のコードと100%同じ、安全なセッション書き換えPythonロジック（画面には表示されません）
+    # この隠し要素のおかげで、HTMLの見た目を保ちつつ、昔のセッション遷移がそのまま機能します。
+    cols = st.columns(4)
+    for col, item in zip(cols, nav_config):
+        with col:
+            # CSSで画面外（非表示）に隠した、クリック受け取り用の本物のStreamlitボタン
+            if st.button(" ", key=f"hidden_btn_{item['page']}", use_container_width=True, help="hidden"):
+                if st.session_state.page != item["page"]:
+                    st.session_state.page = item["page"]
+                    st.rerun()
+    
+    # 隠しボタンを画面から完全に消し去るための透明化CSS
+    st.html("<style>div:has(> button[aria-help=\"hidden\"]) { display: none !important; }</style>")
