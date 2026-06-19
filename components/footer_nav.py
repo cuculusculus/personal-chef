@@ -10,8 +10,8 @@ from config.constants import (
 
 def render_footer_nav():
     """
-    スマホでの縦並びを完全に回避し、Streamlit内蔵のフォントを利用して
-    マテリアルアイコンを100%確実に表示する最下部固定フッターナビ。
+    Streamlit Cloud強制バッジ(Created by / Hosted)を完全に避けるため、
+    最下部から55px浮かせた位置に等幅配置する絶対タップ可能フッター。
     """
     current_page = st.session_state.get("page", PAGE_RECIPE)
 
@@ -20,7 +20,6 @@ def render_footer_nav():
         st.session_state.page = query_params["page"]
         st.rerun()
 
-    # アイコン名を純粋な単語（小文字）で指定
     nav_config = [
         {"page": PAGE_RECIPE, "icon": "restaurant"},
         {"page": PAGE_STOCK, "icon": "kitchen"},
@@ -31,33 +30,39 @@ def render_footer_nav():
     links_html = ""
     for item in nav_config:
         is_active = "active" if current_page == item["page"] else ""
-        # 【重要】クラス名に "stIconMaterial" を直接指定することで文字化けを100%防ぎます
         links_html += f"""
         <a href="?page={item['page']}" target="_self" class="nav-item {is_active}">
             <span class="stIconMaterial">{item['icon']}</span>
         </a>
         """
 
-    # HTMLとCSSを画面に出力
     st.html(f"""
     <div class="custom-sticky-footer">
         {links_html}
     </div>
     <style>
-    /* 全ての要素でパディングが横幅を突き破らないように設定 */
+    /* パディング崩れ防止 */
     .custom-sticky-footer, .custom-sticky-footer * {{
         box-sizing: border-box !important;
     }}
 
-    /* フッターコンテナの絶対最下部固定 */
+    /* フッターコンテナをバッジの上に配置 */
     .custom-sticky-footer {{
         position: fixed !important;
-        bottom: 0 !important;
+        
+        /* 
+           【ここが超重要】 
+           最下部（bottom: 0）にすると強制バッジの下に潜り込んで押せなくなります。
+           バッジの高さである「55px」の位置に浮かせることで、バッジとの重なりを完全に回避します。
+        */
+        bottom: 55px !important; 
+        
         left: 0 !important;
         width: 100% !important;
         height: 60px !important;
         background-color: #ffffff !important;
         border-top: 1px solid #e0e0e0 !important;
+        border-bottom: 1px solid #e0e0e0 !important; /* 上下を線で挟んで独立したバーに見せる */
         display: flex !important;
         flex-direction: row !important;
         flex-wrap: nowrap !important;
@@ -66,11 +71,10 @@ def render_footer_nav():
         z-index: 999999 !important;
         padding-left: 8px !important;
         padding-right: 8px !important;
-        padding-bottom: env(safe-area-inset-bottom, 0px) !important;
         box-shadow: 0 -4px 12px rgba(0,0,0,0.08) !important;
     }}
 
-    /* 各ボタンの領域（4等分・スマホでの縮小を許可） */
+    /* 各ボタンの領域（画面幅いっぱいに4等分） */
     .custom-sticky-footer .nav-item {{
         flex: 1 1 25% !important;
         min-width: 0 !important;
@@ -79,23 +83,22 @@ def render_footer_nav():
         align-items: center !important;
         justify-content: center !important;
         text-decoration: none !important;
-        color: #757575 !important; /* 通常時（非選択）の落ち着いたグレー */
+        color: #757575 !important;
         transition: background-color 0.2s, color 0.2s;
     }}
 
-    /* タップ時の視覚効果 */
     .custom-sticky-footer .nav-item:active {{
         background-color: #f1f3f4 !important;
     }}
 
     /* アクティブ（現在選択中）のボタンのスタイル */
     .custom-sticky-footer .nav-item.active {{
-        color: #f2b544 !important; /* 選択中のStreamlitブランドレッド */
-        border-bottom: 3px solid #f2b544 !important; /* アクティブを示す下線 */
+        color: #ff4b4b !important; /* お好みでテーマカラー #f2b544 に変更してください */
+        border-bottom: 3px solid #ff4b4b !important;
         background-color: #fdfaf9 !important;
     }}
 
-    /* Streamlit内蔵マテリアルフォントの強制適用設定 */
+    /* マテリアルアイコンのスタイル調整 */
     .custom-sticky-footer .stIconMaterial {{
         font-size: 26px !important;
         font-family: "Material Symbols Outlined", "Material Symbols Rounded", sans-serif !important;
