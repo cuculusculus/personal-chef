@@ -61,7 +61,7 @@ def show_recipe_detail_dialog(recipe, mode, idx=None, is_fav=False):
 # お気に入り画面
 def render_favorite_page():
 
-    st.subheader(":material/menu_book_2: お気に入りレシピ")
+    st.subheader(":material/folder_special: お気に入りレシピ")
 
     if not st.session_state.favorite_recipes:
         st.info("お気に入りに登録されたレシピはまだありません。")
