@@ -6,27 +6,38 @@ from views.recipe_helpers import render_saved_recipe_detail
 # 共通ダイアログ：詳細を表示し、調理ボタンなどを配置する
 @st.dialog(":material/menu_book: レシピ詳細")
 def show_recipe_detail_dialog(recipe, mode, idx=None, is_fav=False):
-    # 【決定版】ダイアログが完全に表示されたのを見計らって最上部に巻き戻すJS
+     # 【完全解決版】ダイアログが出ているエリア全体・画面全体を一番上まで強制巻き戻しするJS
     st.html(
         """
         <script>
         setTimeout(function() {
-            // 1. ダイアログのスクロールを担当している要素を広く探索
             var doc = window.parent.document;
-            var dialogContent = doc.querySelector('div[role="dialog"]') || 
-                                doc.querySelector('.stDialog') ||
-                                doc.querySelector('[data-testid="stModal"]');
             
-            if (dialogContent) {
-                // ダイアログ本体、またはそのすぐ内側のスクロールエリアを一番上にする
-                dialogContent.scrollTop = 0;
-                
-                var innerScroll = dialogContent.querySelector('div') || dialogContent;
-                if (innerScroll) {
-                    innerScroll.scrollTop = 0;
+            # 1. アプリのメイン画面（親ウインドウ）全体を一番上にスクロール
+            window.parent.scrollTo({ top: 0, behavior: 'instant' });
+            
+            # 2. Streamlitのダイアログを包む最外層の固定レイヤー（オーバーレイ）をすべて探索して一番上に戻す
+            var selectors = [
+                'div[data-testid="stModal"]',
+                '.stDialog',
+                'div[role="dialog"]',
+                'div[class*="StyledModal"]'
+            ];
+            
+            selectors.forEach(function(selector) {
+                var element = doc.querySelector(selector);
+                if (element) {
+                    element.scrollTop = 0;
+                    // その親の親（最前面の固定レイヤー）まで遡ってスクロールをリセット
+                    var parent = element.parentElement;
+                    while (parent && parent !== doc.body) {
+                        parent.scrollTop = 0;
+                        parent.scrollTo = 0;
+                        parent = parent.parentElement;
+                    }
                 }
-            }
-        }, 100); // 100ミリ秒（0.1秒）だけ待ってから確実に実行する
+            });
+        }, 150); // 描画を待つため0.15秒の安全な猶予を確保
         </script>
         """
     )
