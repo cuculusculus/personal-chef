@@ -16,25 +16,35 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# 1. セッションの初期化
+apply_styles()
 initialize_session()
 
-apply_styles()
+# =========================================================
+# 【フッターナビ連動用アンテナ】
+# =========================================================
+current_page = st.session_state.get("page", PAGE_RECIPE)
+query_params = st.query_params
 
+if "page" in query_params and query_params["page"] != current_page:
+    st.session_state.page = query_params["page"]
+    st.rerun()
 
-# 通常のルーティング
-ROUTES = {
-    PAGE_RECIPE: render_recipe_page,
-    PAGE_STOCK: render_stock_page_fragment,
-    PAGE_FAVORITE: render_favorite_page,
-    PAGE_HISTORY: render_history_page,
-}
+# =========================================================
+# 【高速化のキモ】今必要なページ「だけ」をピンポイントで動かす
+# =========================================================
+# 選択されているページに応じて、該当する関数の「1つだけ」を実行します。
+# これにより、裏側で他の重いページが同時に計算されるのを100%完全に防ぎ、
+# タブを切り替えた瞬間に画面がサッと表示されるようになります。
+target_page = st.session_state.get("page", PAGE_RECIPE)
 
-# 3. メインコンテンツの描画
-ROUTES.get(
-    st.session_state.page,
-    render_recipe_page
-)()
+if target_page == PAGE_STOCK:
+    render_stock_page_fragment()
+elif target_page == PAGE_FAVORITE:
+    render_favorite_page()
+elif target_page == PAGE_HISTORY:
+    render_history_page()
+else:
+    render_recipe_page() # デフォルトはレシピ考案ページ
 
-# 4. 完全固定の下部ナビゲーション
+# --- 完全固定の下部ナビゲーション ---
 render_footer_nav()
