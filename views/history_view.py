@@ -17,8 +17,8 @@ from views.recipe_helpers import render_saved_recipe_detail
 @st.dialog(":material/kitchen: レシピ詳細")
 def show_recipe_detail_dialog(recipe, mode, idx=None, is_fav=False):
 
-    # スクロールリセット用（任意）
-    st.session_state["_dialog_nonce"] = st.session_state.get("_dialog_nonce", 0) + 1
+    # 毎回ユニーク化（スクロール＆再利用対策）
+    st.session_state["_dialog_id"] = str(uuid.uuid4())
 
     render_saved_recipe_detail(
         recipe,
@@ -28,7 +28,6 @@ def show_recipe_detail_dialog(recipe, mode, idx=None, is_fav=False):
 
     st.markdown("<hr>", unsafe_allow_html=True)
 
-    # 操作ボタン
     col1, col2 = st.columns(2)
 
     with col1:
@@ -56,6 +55,14 @@ def show_recipe_detail_dialog(recipe, mode, idx=None, is_fav=False):
 
 
 # =========================
+# ★追加：毎回新規扱いで開くラッパー
+# =========================
+def open_recipe_dialog(recipe, mode, idx=None, is_fav=False):
+    st.session_state["_dialog_id"] = str(uuid.uuid4())
+    show_recipe_detail_dialog(recipe, mode, idx, is_fav)
+
+
+# =========================
 # お気に入り画面
 # =========================
 def render_favorite_page():
@@ -68,11 +75,11 @@ def render_favorite_page():
     for idx, recipe in enumerate(st.session_state.favorite_recipes):
         if st.button(
             recipe["title"],
-            icon=":material/star:",
+            icon":material/star:",
             key=f"fav_btn_{idx}",
             use_container_width=True
         ):
-            show_recipe_detail_dialog(recipe, mode="favorite", idx=idx)
+            open_recipe_dialog(recipe, mode="favorite", idx=idx)
 
 
 # =========================
@@ -101,7 +108,7 @@ def render_history_page():
             key=f"hist_btn_{idx}",
             use_container_width=True
         ):
-            show_recipe_detail_dialog(
+            open_recipe_dialog(
                 recipe,
                 mode="history",
                 idx=idx,
