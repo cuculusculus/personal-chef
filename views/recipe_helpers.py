@@ -76,9 +76,14 @@ def render_saved_recipe_detail(recipe, servings, show_buttons=False):
     point_part = recipe.get("point", "")
     if point_part:
         st.markdown(f"""
-            <div style='background-color:#fffde7; border-left:5px solid #fbc02d; padding:12px; border-radius:4px; margin-top:16px; margin-bottom: 8px; font-size:0.8rem;'>
-                <strong>💡 Quick Tips</strong><br>{point_part}
-            </div>
+           <div style='background-color:#fffde7; border-left:5px solid #fbc02d; padding:12px; border-radius:4px; margin-top:16px; margin-bottom: 8px;'>
+              <div style='display: flex; align-items: center; color: #f57f17; margin-bottom: 5px;'>
+                  <span class="material-symbols-outlined" style="font-size: 20px; margin-right: 8px;">lightbulb_2</span>
+                  <strong style='font-size: 16px;'>プロのワンポイント</strong>
+              </div>
+              <div style='font-size: 0.9rem; color: #333333;'>{point_part}</div>
+           </div>
         """, unsafe_allow_html=True)
+
 
     return
