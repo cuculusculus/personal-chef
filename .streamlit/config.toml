@@ -1,5 +1,6 @@
 [client]
 showSidebarNavigation = false
+toolbarMode = "collapsed"
 [theme]
 primaryColor = "#f2b544"  # ここを好きな色に変えるだけ
 backgroundColor = "#FFFFFF"
