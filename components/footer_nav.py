@@ -100,7 +100,7 @@ def render_footer_nav():
 
     /* マテリアルアイコンのスタイル調整 */
     .custom-sticky-footer .stIconMaterial {{
-        font-size: 26px !important;
+        font-size: 30px !important;
         font-family: "Material Symbols Outlined", "Material Symbols Rounded", sans-serif !important;
         font-weight: normal !important;
         font-style: normal !important;
