@@ -70,7 +70,7 @@ def render_saved_recipe_detail(recipe, servings, show_buttons=False):
     # 【重要】ここで unsafe_allow_html=True を指定することで span タグが有効になります
     st.markdown(nut_content, unsafe_allow_html=True)
     
-    st.markdown(f"#### :material/dining: 作り方")
+    st.markdown(f"#### :material/skillet: 作り方")
     st.markdown(steps_html, unsafe_allow_html=True)
 
     point_part = recipe.get("point", "")
