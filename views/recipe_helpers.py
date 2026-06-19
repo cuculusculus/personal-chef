@@ -34,7 +34,7 @@ def render_saved_recipe_detail(recipe, servings, show_buttons=False):
                 :material/mode_heat: エネルギー {e:.1f} kcal<br>
                 :material/egg: たんぱく質 {p:.1f} g<br>
                 :material/water_drop: 脂質 {f:.1f} g<br>
-                :material/wheat: 炭水化物 {carbo:.1f} g<br><span style='font-size: 0.75rem; color: #666;'>(糖質 {s:.1f}g (糖類 {st_val:.1f}g) + 食物繊維 {fi:.1f}g)</span><br>
+                :material/wheat: 炭水化物 {carbo:.1f} g<br><span style='font-size: 0.75rem; color: #666; display: inline-block; margin-left: 28px;'>(糖質 {s:.1f}g (糖類 {st_val:.1f}g) + 食物繊維 {fi:.1f}g)</span><br>
                 :material/salinity: 食塩相当量 {salt:.1f} g
                 """
     else:
