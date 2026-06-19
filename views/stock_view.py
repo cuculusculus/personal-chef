@@ -20,7 +20,7 @@ def render_stock_page_fragment():
     """, unsafe_allow_html=True)
 
     st.subheader(":material/briefcase_meal: 食材管理")
-    st.caption("冷蔵庫にある食材をタップして登録・数量を調整できます。")
+    #st.caption("冷蔵庫にある食材をタップして登録・数量を調整できます。")
     
 
     # タブ設定
