@@ -23,7 +23,7 @@ def render_footer_nav():
     nav_config = [
         {"page": PAGE_RECIPE, "icon": "restaurant"},
         {"page": PAGE_STOCK, "icon": "kitchen"},
-        {"page": PAGE_FAVORITE, "icon": "bookmark_star"},
+        {"page": PAGE_FAVORITE, "icon": "folder_special"},
         {"page": PAGE_HISTORY, "icon": "history"},
     ]
 
