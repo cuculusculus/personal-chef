@@ -9,7 +9,7 @@ from views.recipe_view import render_recipe_page
 from views.stock_view import render_stock_page_fragment
 from views.history_view import render_favorite_page, render_history_page
 
-# ページ設定
+# ページ設定（必ず最初に行う）
 st.set_page_config(
     page_title="Smart Fridge Chef", 
     page_icon="👨‍🍳", 
@@ -17,9 +17,9 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-apply_styles()
-
+# 【修正ポイント】先にセッションを初期化してから、スタイルを適用する
 initialize_session()
+apply_styles()
 
 # ルーティング
 ROUTES = {
@@ -29,12 +29,11 @@ ROUTES = {
     PAGE_HISTORY: render_history_page,
 }
 
-# 描画
+# 描画（メインコンテンツ）
 ROUTES.get(
     st.session_state.page,
     render_recipe_page
 )()
 
-# # --- 完全固定の下部ナビゲーション ---
-
+# --- 完全固定の下部ナビゲーション ---
 render_footer_nav()
