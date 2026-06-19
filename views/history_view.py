@@ -33,8 +33,8 @@ def reset_dialog_scroll():
 # 元通りのシンプルなダイアログ構造に復活
 @st.dialog(":material/kitchen: レシピ詳細")
 def show_recipe_detail_dialog(recipe, mode, idx=None, is_fav=False):
-    reset_scroll()
-    st.rerun
+    reset_dialog_scroll()
+
     # 詳細表示
     render_saved_recipe_detail(recipe, recipe.get("servings", 2), show_buttons=False)
     
