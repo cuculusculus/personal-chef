@@ -19,7 +19,7 @@ def render_stock_page_fragment():
         </style>
     """, unsafe_allow_html=True)
 
-    st.subheader(":material/briefcase_meal: 食材管理")
+    st.subheader(":material/grocery: パントリー")
     #st.caption("冷蔵庫にある食材をタップして登録・数量を調整できます。")
     
 
@@ -44,7 +44,7 @@ def render_stock_page_fragment():
             current_stock = st.session_state["stock_data"][cat]
             default_selected = [item for item in options if item in current_stock]
 
-            st.write("##### :material/grocery: 食材一覧（タップで選択）")
+            st.write("##### 食材一覧 ######（タップで選択）")
             selected_items = st.pills("選択", options, default=default_selected, selection_mode="multi", key=f"pills_{cat}", label_visibility="collapsed") or []
 
             # 数量調整ロジック
