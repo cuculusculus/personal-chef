@@ -90,8 +90,8 @@ def render_footer_nav():
 
     /* アクティブ（現在選択中）のボタンのスタイル */
     .custom-sticky-footer .nav-item.active {{
-        color: #ff4b4b !important; /* 選択中のStreamlitブランドレッド */
-        border-bottom: 3px solid #ff4b4b !important; /* アクティブを示す下線 */
+        color: #f2b544 !important; /* 選択中のStreamlitブランドレッド */
+        border-bottom: 3px solid #f2b544 !important; /* アクティブを示す下線 */
         background-color: #fdfaf9 !important;
     }}
 
