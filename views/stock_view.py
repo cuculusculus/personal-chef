@@ -19,8 +19,9 @@ def render_stock_page_fragment():
         </style>
     """, unsafe_allow_html=True)
 
-    st.title(":material/briefcase_meal: 持っている食材の管理")
-    st.caption("ボタンをタップして選択（色付き）にすると、冷蔵庫に登録されます。数量もその場で設定可能です。")
+    st.subheader(":material/briefcase_meal: 食材管理")
+    st.caption("冷蔵庫にある食材をタップして登録・数量を調整できます。")
+    
 
     # タブ設定
     #tabs = st.tabs(["🥩 肉類", "🐟 魚介類", "🥬 野菜類", "🍚 主食", "🥛 卵・乳製品・豆類", "🧂 調味料"])
