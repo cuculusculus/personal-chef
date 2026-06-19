@@ -8,10 +8,15 @@ from views.recipe_helpers import render_saved_recipe_detail
 def show_recipe_detail_dialog(recipe, mode, idx=None, is_fav=False):
     
     # 詳細表示
+    #render_saved_recipe_detail(recipe, recipe.get("servings", 2), show_buttons=False)
+    st.session_state["_dialog_nonce"] = st.session_state.get("_dialog_nonce", 0) + 1
+
     render_saved_recipe_detail(recipe, recipe.get("servings", 2), show_buttons=False)
-    
     st.markdown("<hr>", unsafe_allow_html=True)
-    
+
+    def open_dialog(recipe, mode):
+    st.session_state["_dialog_nonce"] = str(uuid.uuid4())
+    show_recipe_detail_dialog(recipe, mode)
     # 操作ボタン
     col1, col2 = st.columns(2)
     with col1:
