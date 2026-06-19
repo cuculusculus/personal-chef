@@ -84,7 +84,7 @@ def render_favorite_page():
 # 履歴画面
 def render_history_page():
 
-    st.subheader(":material/history_edu: 過去の提案履歴")
+    st.subheader(":material/overview: 過去の提案履歴")
 
     if not st.session_state.recipe_history:
         st.info("過去に提案されたレシピ履歴はありません。")
