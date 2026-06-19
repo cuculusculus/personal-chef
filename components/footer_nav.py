@@ -14,13 +14,6 @@ def render_footer_nav():
     最下部から45px浮かせた位置に等幅配置する絶対タップ可能フッター。
     """
     current_page = st.session_state.get("page", PAGE_RECIPE)
-
-    # 1. URL（クエリパラメータ）を常に監視し、ページ遷移や「調理する」ボタンのジャンプに連動させる
-    query_params = st.query_params
-    if "page" in query_params and query_params["page"] != current_page:
-        st.session_state.page = query_params["page"]
-        st.rerun()
-
     nav_config = [
         {"page": PAGE_RECIPE, "icon": "restaurant"},
         {"page": PAGE_STOCK, "icon": "kitchen"},
