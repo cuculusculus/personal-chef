@@ -19,6 +19,9 @@ def render_recipe_detail_fullscreen():
     # 最上部に配置する「戻る」ボタン
     if st.button("← 戻る", type="secondary", use_container_width=True):
         st.session_state["selected_recipe"] = None
+        st.session_state["selected_recipe_mode"] = None
+        st.session_state["selected_recipe_idx"] = None
+        st.session_state["selected_recipe_is_fav"] = False
         st.rerun()
         
     st.subheader(":material/kitchen: レシピ詳細")
