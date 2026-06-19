@@ -1,12 +1,10 @@
 # config/styles.py
 import streamlit as st
 
-
 APP_CSS = """
 <style>
 
 /* ---------- Streamlit標準UI非表示 ---------- */
-
 [data-testid="stSidebar"],
 [data-testid="stSidebarCollapsedControl"],
 header,
@@ -21,16 +19,14 @@ div[data-testid="stDecoration"],
     min-height: 0 !important;
 }
 
-/* ---------- アプリ全体レイアウト（上部余白カット） ---------- */
-
-/* 最新のStreamlitコンテナの上部余白（padding-top）を0pxに強制します */
+/* ---------- アプリ全体レイアウト ---------- */
 [data-testid="stMainBlockContainer"],
 .main .block-container {
     padding-top: 0px !important;
     margin-top: 0px !important;
     padding-left: 1rem !important;
     padding-right: 1rem !important;
-    padding-bottom: 160px !important;  /* フッター + バッジを避ける下部余白 */
+    padding-bottom: 160px !important;
     max-width: 100% !important;
 }
 
@@ -39,13 +35,25 @@ div[data-testid="stDecoration"],
     padding-bottom: 100px;
 }
 
-
-/* ---------- 各ページタイトルの画面サイズ最適化 ---------- */
-
+/* ---------- 【新設】ダイアログの位置を最上部に強制固定 ---------- */
 /* 
-   1. タイトル全体のコンテナ（Grid構造）の横幅が
-      スマホの画面幅（100%）を絶対に超えないように物理制限をかけます。
+   ダイアログの背景マスク全体の位置をリセットし、
+   どんなスクロール位置から開いても必ず画面の最上部（top: 10px）にダイアログを配置します。
 */
+div[data-testid="stModal"] {
+    top: 10px !important;
+    bottom: auto !important;
+    align-items: flex-start !important;
+    max-height: 85vh !important; /* スマホフッターを隠さない高さ */
+}
+
+/* ダイアログ内のスクロールを上端（0）から強制スタートさせるための設定 */
+div[data-testid="stModal"] > div {
+    margin-top: 0 !important;
+    top: 0 !important;
+}
+
+/* ---------- タイトル・見出しの画面サイズ最適化 ---------- */
 .main .block-container [data-testid="stHeadingWithIcon"],
 .main .block-container [data-testid="stHeaderBlockContainer"],
 .main .block-container [data-testid="element-container"]:has(h1, h2, h3) {
@@ -55,37 +63,14 @@ div[data-testid="stDecoration"],
     overflow: hidden !important;
 }
 
-/* 
-   2. アイコンの右側にある「文字が入っている領域」をピンポイントで捕獲。
-*/
-.main .block-container [data-testid="stHeadingWithIcon"] > div:last-child,
 .main .block-container h1,
-.main .block-container h2,
-.main .block-container h3 {
-    min-width: 0 !important;
-    max-width: 100% !important;
-    overflow: hidden !important;
-}
-
-/* 
-   3. 実際の文字に対して、絶対に改行を許さず自動縮小・省略（...）させます。
-*/
-.main .block-container h1 p,
 .main .block-container h1 span,
-.main .block-container h1,
-.main .block-container h2 *,
-.main .block-container h3 * {
-    white-space: nowrap !important;
-    word-break: keep-all !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-    font-size: max(1.2rem, 5.2vw) !important; 
+.main .block-container [data-testid="stHeadingWithIcon"] h1 p {
+    font-size: max(1.2rem, 5.2vw) !important;
     line-height: 1.2 !important;
 }
 
 /* ---------- フッターボタン内の調整 ---------- */
-
-/* フッター内のボタンを正方形・タップ領域最適化 */
 div[id="fixed_footer_root"] + div button {
     height: 52px !important;
     padding: 0 !important;
@@ -93,7 +78,6 @@ div[id="fixed_footer_root"] + div button {
     align-items: center;
 }
 
-/* ボタン内のマテリアルアイコンのサイズ調整 */
 div[id="fixed_footer_root"] + div button [data-testid="stIconMaterial"] {
     font-size: 28px !important;
 }
@@ -108,13 +92,9 @@ div[id="fixed_footer_root"] + div button [data-testid="stIconMaterial"] {
 </style>
 """
 
-
 def apply_styles():
-    # 【修正】崩れていたGoogle FontsのURLを、マテリアルアイコン用の正しいURLに修正
     st.markdown("""
 <link rel="stylesheet"
 href="https://googleapis.com" />
 """, unsafe_allow_html=True)
-
-    # 確実に上部余白を消去するため、st.markdownではなく、自動余白のつかないst.htmlで出力
     st.html(APP_CSS)
