@@ -131,6 +131,10 @@ def render_recipe_page():
             料理タイプ： <b>{display_type}</b>　|　テーマ： <b>{display_mood}</b>
         </div>
     """, unsafe_allow_html=True)
+    st.slider(
+        "何人分作りますか？", min_value=1, max_value=5, key="servings_input", 
+        on_change=lambda: update_recipe_logic() if st.session_state.get("recipe_generated") else None
+    )
     if not st.session_state.get("recipe_generated"):
         if st.button("Let's cook !",  icon=":material/local_dining:",type="primary", use_container_width=True):
             st.session_state["temp_ingredients"] = ", ".join(all_stock_formatted)
@@ -148,10 +152,10 @@ def render_recipe_page():
             update_recipe_logic(force_new=True)
             st.rerun()
     
-    st.slider(
-        "何人分作りますか？", min_value=1, max_value=5, key="servings_input", 
-        on_change=lambda: update_recipe_logic() if st.session_state.get("recipe_generated") else None
-    )
+    # st.slider(
+    #     "何人分作りますか？", min_value=1, max_value=5, key="servings_input", 
+    #     on_change=lambda: update_recipe_logic() if st.session_state.get("recipe_generated") else None
+    # )
 
     recipe = st.session_state.get("current_recipe_obj")
     if recipe:
