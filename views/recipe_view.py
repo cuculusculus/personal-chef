@@ -64,7 +64,7 @@ def show_fridge_dialog(all_stock, seasonings_stock):
     st.markdown('<div style="margin-bottom: 20px;"></div>', unsafe_allow_html=True)
     
 def render_recipe_page():
-    st.title(":material/chef_hat: レシピ考案")
+    st.subheader(":material/chef_hat: レシピ考案")
     #frame_inspect
     all_stock_formatted = []
     for cat in ["meat", "fish", "vegetables", "staple", "dairy"]:
