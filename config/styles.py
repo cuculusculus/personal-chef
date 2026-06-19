@@ -35,24 +35,27 @@ div[data-testid="stDecoration"],
     padding-bottom: 100px;
 }
 
-/* ---------- 【新設】ダイアログの位置を最上部に強制固定 ---------- */
+/* ---------- 【決定版】ダイアログの位置を最上部に強制固定 ---------- */
 /* 
-   最新のStreamlitダイアログを包む「最外層の黒い背景レイヤー（stModalContainer）」を直撃。
-   画面中央に浮かすデフォルト設定を破壊し、上端（flex-start）へ強制的に引っ張り上げます。
+   Streamlitの独自コンテナに邪魔されないよう、HTMLの「dialog」要素そのものを直撃。
+   画面中央への配置（margin: auto）を完全に上書きし、上端（margin-top: 15px）に強制固定します。
+*/
+dialog,
+div[role="dialog"],
+[data-testid="stModal"] {
+    margin: 15px auto auto auto !important; /* 上の余白だけを15pxにして、左右は中央、下は自動にします */
+    top: 15px !important;
+    align-self: flex-start !important;      /* 親のFlexboxに対しても上寄せを強制 */
+}
+
+/* 
+   ダイアログを包む最外層の黒い背景（stModalContainer）に対しても、
+   中央配置を無効化して上端スタート（flex-start）に設定します。
 */
 [data-testid="stModalContainer"],
 div[class*="StyledModalContainer"] {
-    align-items: flex-start !important; /* 中央ではなく、画面の上端から配置する */
-    padding-top: 10px !important;       /* 画面の上端にピタッとくっつける（好みに応じて10px〜20px） */
-}
-
-/* ダイアログの「白い箱（stModal）」自体の位置と高さを最適化 */
-[data-testid="stModal"],
-div[class*="StyledModal"] {
-    margin-top: 0px !important;
-    top: 0px !important;
-    max-height: 80vh !important;       /* スマホのフッターナビを隠さない絶妙な高さに制限 */
-    overflow-y: auto !important;       /* 中身が長い場合は箱の中だけでスクロールさせる */
+    align-items: flex-start !important;
+    padding-top: 15px !important;
 }
 
 /* ---------- タイトル・見出しの画面サイズ最適化 ---------- */
