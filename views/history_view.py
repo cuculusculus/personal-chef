@@ -4,7 +4,7 @@ from services.data_service import toggle_favorite, delete_favorite, prepare_reci
 from views.recipe_helpers import render_saved_recipe_detail
 
 # 共通ダイアログ：詳細を表示し、調理ボタンなどを配置する
-@st.dialog("📖 レシピ詳細")
+@st.dialog("material/menu_book: レシピ詳細")
 def show_recipe_detail_dialog(recipe, mode, idx=None, is_fav=False):
     # 詳細表示（ボタンは utils 側で作らず、ここで管理）
     render_saved_recipe_detail(recipe, recipe.get("servings", 2), show_buttons=False)
