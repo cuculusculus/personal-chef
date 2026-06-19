@@ -19,15 +19,6 @@ st.set_page_config(
 # 1. セッションの初期化
 initialize_session()
 
-# フッターのシンプルなページ切り替えURL監視のみ残す
-current_page = st.session_state.get("page", PAGE_RECIPE)
-query_params = st.query_params
-
-if "page" in query_params and query_params["page"] != current_page:
-    st.session_state.page = query_params["page"]
-    st.rerun()
-
-# 2. スタイルの適用
 apply_styles()
 
 # 通常のルーティング
