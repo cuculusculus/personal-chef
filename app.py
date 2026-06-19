@@ -10,7 +10,7 @@ from views.history_view import render_favorite_page, render_history_page
 
 # ページ設定
 st.set_page_config(
-    page_title="Smart Fridge Chef", 
+    page_title="Personal Chef", 
     page_icon="👨‍🍳", 
     layout="wide",
     initial_sidebar_state="collapsed"
