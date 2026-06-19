@@ -40,7 +40,7 @@ def render_recipe_detail_fullscreen():
             st.session_state["selected_recipe_mode"] = None
             st.session_state["selected_recipe_idx"] = None
             st.session_state["selected_recipe_is_fav"] = False
-            st.rerun()
+            st.rerun(scope="app")
             
     with col2:
         if mode == "favorite":
@@ -50,7 +50,7 @@ def render_recipe_detail_fullscreen():
                 st.session_state["selected_recipe_mode"] = None
                 st.session_state["selected_recipe_idx"] = None
                 st.session_state["selected_recipe_is_fav"] = False
-                st.rerun()
+                st.rerun(scope="app")
         elif mode == "history":
             btn_label = "お気に入り解除" if is_fav else "お気に入り登録"
             btn_icon = ":material/bookmark_remove:" if is_fav else ":material/bookmark_add:"
@@ -61,7 +61,7 @@ def render_recipe_detail_fullscreen():
                 st.session_state["selected_recipe_mode"] = None
                 st.session_state["selected_recipe_idx"] = None
                 st.session_state["selected_recipe_is_fav"] = False
-                st.rerun()
+                st.rerun(scope="app")
 
 
 def render_favorite_page():
@@ -81,7 +81,7 @@ def render_favorite_page():
             st.session_state["selected_recipe"] = recipe
             st.session_state["selected_recipe_mode"] = "favorite"
             st.session_state["selected_recipe_idx"] = idx
-            st.rerun()
+            st.rerun(scope="app")
 
 
 def render_history_page():
@@ -107,4 +107,4 @@ def render_history_page():
             st.session_state["selected_recipe"] = recipe
             st.session_state["selected_recipe_mode"] = "history"
             st.session_state["selected_recipe_is_fav"] = is_fav
-            st.rerun()
+            st.rerun(scope="app")
