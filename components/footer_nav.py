@@ -10,7 +10,8 @@ from config.constants import (
 
 def render_footer_nav():
     """
-    Streamlitの自動縦並び化を完全に回避する、純粋なHTML/CSS製フッターナビ。
+    スマホでの縦並びやフォント読み込みエラーを100%回避する、
+    絵文字ベースの絶対横並びフッターナビ。
     """
     current_page = st.session_state.get("page", PAGE_RECIPE)
 
@@ -19,11 +20,13 @@ def render_footer_nav():
         st.session_state.page = query_params["page"]
         st.rerun()
 
+    # 【修正】Material Iconsをやめ、スマホ共通の「絵文字」に変更
+    # これによりフォントが読み込めずにテキストとしてはみ出る現象を完全に防ぎます
     nav_items = [
-        {"page": PAGE_RECIPE, "icon": "restaurant"},
-        {"page": PAGE_STOCK, "icon": "kitchen"},
-        {"page": PAGE_FAVORITE, "icon": "bookmark_star"},
-        {"page": PAGE_HISTORY, "icon": "history"},
+        {"page": PAGE_RECIPE, "icon": "🍳"},      # レシピ
+        {"page": PAGE_STOCK, "icon": "🫙"},       # 在庫 (冷蔵庫)
+        {"page": PAGE_FAVORITE, "icon": "⭐"},    # お気に入り
+        {"page": PAGE_HISTORY, "icon": "⏱️"},     # 履歴
     ]
 
     links_html = ""
@@ -31,7 +34,7 @@ def render_footer_nav():
         is_active = "active" if current_page == item["page"] else ""
         links_html += f"""
         <a href="?page={item['page']}" target="_self" class="nav-item {is_active}">
-            <span class="material-symbols-outlined">{item['icon']}</span>
+            <div class="icon-wrapper">{item['icon']}</div>
         </a>
         """
 
@@ -45,13 +48,13 @@ def render_footer_nav():
         box-sizing: border-box !important;
     }}
 
-    /* フッターコンテナの絶対最下部固定 */
+    /* フッターコンテナの絶対最下部固定（横並び強制） */
     .custom-sticky-footer {{
         position: fixed !important;
         bottom: 0 !important;
         left: 0 !important;
         width: 100% !important;
-        height: 60px !important; /* 少し高さをスリムに */
+        height: 60px !important;
         background-color: #ffffff !important;
         border-top: 1px solid #e0e0e0 !important;
         display: flex !important;
@@ -68,31 +71,36 @@ def render_footer_nav():
 
     /* 各ボタンの領域（4等分・縮小を許可） */
     .custom-sticky-footer .nav-item {{
-        flex: 1 1 25% !important; /* 25%をベースに伸縮可能にする */
-        min-width: 0 !important;    /* はみ出し防止に必須の設定 */
+        flex: 1 1 25% !important;
+        min-width: 0 !important;
         height: 100% !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
         text-decoration: none !important;
-        color: #5f6368 !important;
+        transition: background-color 0.2s;
+        opacity: 0.4; /* 通常時は少し薄くする */
     }}
 
+    /* タップ時の視覚効果 */
     .custom-sticky-footer .nav-item:active {{
         background-color: #f1f3f4 !important;
     }}
 
+    /* アクティブ（現在選択中）のボタンのスタイル */
     .custom-sticky-footer .nav-item.active {{
-        color: #ff4b4b !important;
+        opacity: 1.0 !important; /* アクティブ時はくっきり表示 */
+        background-color: #fcf8f8 !important; /* 選択中の背景をほんのり変更 */
+        border-bottom: 3px solid #ff4b4b !important; /* 下線をつけて強調 */
     }}
 
-    /* アイコンのサイズを30pxから24pxに縮小（一般的なモバイルアプリのサイズ） */
-    .custom-sticky-footer .nav-item span {{
-        font-size: 24px !important;
-        display: block !important;
-        width: 24px !important;
-        height: 24px !important;
-        text-align: center !important;
+    /* アイコン（絵文字）のサイズと配置 */
+    .custom-sticky-footer .icon-wrapper {{
+        font-size: 26px !important; /* スマホで最適なサイズ */
+        line-height: 1 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
     }}
     </style>
     """)
