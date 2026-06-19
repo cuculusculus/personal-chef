@@ -2,7 +2,14 @@
 import streamlit as st
 from services.data_service import toggle_favorite, delete_favorite, prepare_recipe_for_cooking
 from views.recipe_helpers import render_saved_recipe_detail
+import streamlit.components.v1 as components
 
+def scroll_to_top():
+    components.html("""
+    <script>
+        setTimeout(() => window.scrollTo(0, 0), 10);
+    </script>
+    """, height=0)
 # 元通りのシンプルなダイアログ構造に復活
 @st.dialog(":material/kitchen: レシピ詳細")
 def show_recipe_detail_dialog(recipe, mode, idx=None, is_fav=False):
