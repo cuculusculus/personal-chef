@@ -18,6 +18,26 @@ div[data-testid="stDecoration"] {
     display: none !important;
 }
 
+/* 
+   【最重要】スマホ右下の「Manage app」バッジを強制非表示 
+   アプリの外側に配置されているバッジ要素を、最高レベルの優先度で上書き・消去します。
+*/
+iframe[title="Manage app"],
+div[class*="viewerBadge"],
+div[class*="manageApp"],
+.stViewerBadge,
+div[data-testid="stStatusWidget"],
+#tabs-bnd-tab-container + div,
+div[style*="position: fixed"][style*="bottom:"] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    width: 0 !important;
+    height: 0 !important;
+    pointer-events: none !important;
+    z-index: -999999 !important;
+}
+
 /* ---------- アプリ全体レイアウト ---------- */
 
 .main .block-container {
