@@ -21,7 +21,7 @@ def render_recipe_detail_fullscreen():
         st.session_state["selected_recipe_mode"] = None
         st.session_state["selected_recipe_idx"] = None
         st.session_state["selected_recipe_is_fav"] = False
-        st.rerun()
+        st.rerun(scope="app")
         
     st.subheader(":material/kitchen: レシピ詳細")
     st.markdown("---")
