@@ -19,7 +19,7 @@ def show_recipe_detail_dialog(recipe, mode, idx=None, is_fav=False):
             prepare_recipe_for_cooking(recipe)
             # 2. 【ここを追加】フッターナビのURL自動監視と連動させるため、URLのクエリを強制上書き
             from config.constants import PAGE_RECIPE
-            st.query_params["page"] = PAGE_RECIPE
+           
             
             # 3. セッションの現在地も合わせて同期
             st.session_state.page = PAGE_RECIPE
