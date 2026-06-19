@@ -51,34 +51,41 @@ div[style*="position: fixed"][style*="bottom:"] {
 .stApp {
     padding-bottom: 100px;
 }
-/* ---------- 【修正】タイトル・見出しの折り返し防止 ---------- */
+/* ---------- 【決定版】タイトル・見出しの折り返し防止 ---------- */
 
 /* 
-   .main .block-container を起点にし、さらに内部のテキスト要素（spanやp、h1）まで
-   すべて強制指定することで、Streamlit本来の自動改行ルールを完全に破壊して上書きします。
+   1. Streamlitの見出しを包む特殊なコンテナ（Flexbox）の幅を100%に固定し、
+      中身がはみ出た場合に縮小・非表示にできるように設定を上書きします。
+*/
+.main .block-container div[data-testid="stHeaderBlockContainer"],
+.main .block-container div[data-testid="element-container"]:has(h1, h2, h3) {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+}
+
+/* 
+   2. 見出しタグ（h1, h2, h3）および内部の全テキスト要素（span, p）に対して、
+      Flexboxの影響を無効化し、絶対に1行で「...」にする設定を強制します。
 */
 .main .block-container h1,
 .main .block-container h2,
 .main .block-container h3,
-.main .block-container h1 span,
-.main .block-container h2 span,
-.main .block-container h3 span,
-.main .block-container [data-testid="stHeaderBlockContainer"] {
+.main .block-container h1 *,
+.main .block-container h2 *,
+.main .block-container h3 * {
     white-space: nowrap !important;     /* 絶対に改行させない */
-    word-break: keep-all !important;    /* 単語の途中での改行も禁止 */
-    overflow: hidden !important;        /* はみ出た部分は隠す */
-    text-overflow: ellipsis !important; /* 末尾を「...」にする */
-    display: block !important;          /* インラインからブロック要素に変えて ellipsis を有効化 */
+    word-break: keep-all !important;    /* 単語の途中での折り返しも禁止 */
+    overflow: hidden !important;        /* はみ出た部分は完全に隠す */
+    text-overflow: ellipsis !important; /* 末尾を自動で「...」にする */
     
-    /* スマホ画面用にサイズをコンパクトにする（h1基準） */
-    font-size: max(1.4rem, 5.5vw) !important; 
+    /* Flexboxの挙動を通常ブロックに強制リセット（これが効かなかった原因です） */
+    display: block !important;          
+    width: 100% !important;
+    
+    /* スマホ画面に合わせて文字サイズを少しコンパクトに（20px〜24px付近に自動調整） */
+    font-size: max(1.3rem, 5.5vw) !important; 
 }
-
-/* ついでにタイトル下部の余計な余白も削ってスマホ画面を広くします */
-.main .block-container [data-testid="element-container"]:has(h1, h2, h3) {
-    margin-bottom: 0.5rem !important;
-}
-
     
 /* ---------- フッターボタン内の調整 ---------- */
 
