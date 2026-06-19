@@ -25,7 +25,7 @@ def show_recipe_detail_dialog(recipe, mode, idx=None, is_fav=False):
             st.session_state.page = PAGE_RECIPE
             
             # 4. 【ここを変更】アプリ全体（scope="app"）をリフレッシュして一気にジャンプさせる
-            st.rerun(scope="app")
+            st.rerun()
             
     with col2:
         if mode == "favorite":
