@@ -33,7 +33,7 @@ def show_recipe_detail_dialog(recipe, mode, idx=None, is_fav=False):
 
 def render_favorite_page():
     
-    st.title(":material/menu_book_2: お気に入りレシピ")
+    st.subheader(":material/menu_book_2: お気に入りレシピ")
     if not st.session_state.favorite_recipes:
         st.info("お気に入りに登録されたレシピはまだありません。")
         return
@@ -43,7 +43,7 @@ def render_favorite_page():
             show_recipe_detail_dialog(recipe, mode="favorite", idx=idx)
 
 def render_history_page():
-    st.title(":material/history_edu: 過去の提案履歴")
+    st.subheader(":material/history_edu: 過去の提案履歴")
     if not st.session_state.recipe_history:
         st.info("過去に提案されたレシピ履歴はありません。")
         return
