@@ -17,6 +17,25 @@ st.set_page_config(
 )
 
 initialize_session()
+# =========================================================
+# 【超重要：新規追加】
+# フッターのボタン（URLのクエリパラメータ）が押されたかを、画面を描画する前に最優先でチェックする。
+# ページが切り替わる場合は、ここで他ページの詳細画面のデータを完全に真っさらにします。
+# =========================================================
+current_page = st.session_state.get("page", PAGE_RECIPE)
+query_params = st.query_params
+
+if "page" in query_params and query_params["page"] != current_page:
+    # ページを更新
+    st.session_state.page = query_params["page"]
+    
+    # 詳細表示用のセッションのゴミをここで確実に全消去
+    st.session_state["selected_recipe"] = None
+    st.session_state["selected_recipe_mode"] = None
+    st.session_state["selected_recipe_idx"] = None
+    st.session_state["selected_recipe_is_fav"] = False
+    st.rerun()
+# =========================================================
 apply_styles()
 
 # ルーティング
