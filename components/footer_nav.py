@@ -21,12 +21,12 @@ def render_footer_nav():
         st.rerun()
 
     # マテリアルアイコンの名前を指定
-    nav_items = [
-        {"page": PAGE_RECIPE, "icon": "restaurant"},
-        {"page": PAGE_STOCK, "icon": "kitchen"},
-        {"page": PAGE_FAVORITE, "icon": "bookmark_star"},
-        {"page": PAGE_HISTORY, "icon": "history"},
-    ]
+    nav_config = [
+            {"page": PAGE_RECIPE,"icon": ":material/restaurant:"},
+            {"page": PAGE_STOCK,"icon": ":material/kitchen:"},
+            {"page": PAGE_FAVORITE,"icon": ":material/bookmark_star:"},
+            {"page": PAGE_HISTORY,"icon": ":material/history:"}
+        ]
 
     links_html = ""
     for item in nav_items:
