@@ -20,17 +20,30 @@ div[data-testid="stDecoration"] {
 
 /* ---------- アプリ全体レイアウト ---------- */
 
+*/
+[data-testid="stAppHeader"] {
+    height: 0 !important;
+    min-height: 0 !important;
+    display: none !important;
+}
+
+/* 
+   2. メインコンテンツを包むコンテナの上部パディング（padding-top）を
+      0に強制上書きし、画面の一番上からコンテンツが始まるようにします。
+*/
 .main .block-container {
-    padding-top: 0.2rem !important;
+    padding-top: 0px !important;       /* 上の余白を完全にゼロにする */
     padding-left: 1rem !important;
     padding-right: 1rem !important;
-    padding-bottom: 160px !important; /* フッター + バッジを避ける余白 */
+    padding-bottom: 160px !important;  /* フッター + バッジを避ける下部余白 */
     max-width: 100% !important;
 }
 
 .stApp {
+    padding-top: 0px !important;       /* アプリ全体の上の余白もリセット */
     padding-bottom: 100px;
 }
+
 
 /* ---------- 各ページタイトルの画面サイズ最適化 ---------- */
 
