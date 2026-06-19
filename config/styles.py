@@ -44,7 +44,7 @@ div[style*="position: fixed"][style*="bottom:"] {
     padding-top: 0.2rem !important;
     padding-left: 1rem !important;
     padding-right: 1rem !important;
-    padding-bottom: 110px !important; /* フッターにコンテンツが隠れないように下部に余白を確保 */
+    padding-bottom: 160px !important; /* フッターにコンテンツが隠れないように下部に余白を確保 */
     max-width: 100% !important;
 }
 
