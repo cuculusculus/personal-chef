@@ -19,7 +19,33 @@ def render_stock_page_fragment():
         </style>
     """, unsafe_allow_html=True)
 
-    st.title(":material/briefcase_meal: 持っている食材の管理")
+    st.markdown(
+        """
+        <div style="
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis;
+            width: 100%;
+            margin-bottom: 15px;
+        ">
+            <!-- マテリアルアイコンの文字化けを防ぐ stIconMaterial クラスを適用 -->
+            <span class="stIconMaterial" style="font-size: 32px; color: #f2b544;">briefcase_meal</span>
+            <h1 style="
+                margin: 0 !important; 
+                padding: 0 !important; 
+                font-size: max(1.4rem, 5.5vw) !important; 
+                white-space: nowrap !important;
+                overflow: hidden !important;
+                text-overflow: ellipsis !important;
+                font-weight: 700;
+            ">持っている食材の管理</h1>
+        </div>
+        """, 
+        unsafe_allow_html=True
+    )
     st.caption("ボタンをタップして選択（色付き）にすると、冷蔵庫に登録されます。数量もその場で設定可能です。")
 
     # タブ設定
