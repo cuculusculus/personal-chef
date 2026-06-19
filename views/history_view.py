@@ -75,7 +75,7 @@ def render_favorite_page():
     for idx, recipe in enumerate(st.session_state.favorite_recipes):
         if st.button(
             recipe["title"],
-            icon":material/star:",
+            icon=":material/star:",
             key=f"fav_btn_{idx}",
             use_container_width=True
         ):
