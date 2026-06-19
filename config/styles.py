@@ -51,7 +51,20 @@ div[style*="position: fixed"][style*="bottom:"] {
 .stApp {
     padding-bottom: 100px;
 }
+/* ---------- 【新規】タイトル・見出しの折り返し防止 ---------- */
 
+/* st.title、st.header、st.subheader の文字がスマホで2行になるのを防ぐ */
+.main h1, .main h2, .main h3 {
+    white-space: nowrap !important;     /* 絶対に改行・折り返しをしない */
+    overflow: hidden !important;        /* 枠からはみ出た部分を隠す */
+    text-overflow: ellipsis !important; /* はみ出た末尾を自動で「...」にする */
+    
+    /* 
+       スマホ画面に合わせて文字サイズを少しコンパクトに自動スケーリング。
+       vw（画面幅に対するパーセント）を使うことで、デバイスに合わせて最適化されます。
+    */
+    font-size: max(1.5rem, 6vw) !important; 
+    
 /* ---------- フッターボタン内の調整 ---------- */
 
 /* フッター内のボタンを正方形・タップ領域最適化 */
