@@ -6,7 +6,7 @@ from views.recipe_helpers import render_saved_recipe_detail
 # 元通りのシンプルなダイアログ構造に復活
 @st.dialog(":material/kitchen: レシピ詳細")
 def show_recipe_detail_dialog(recipe, mode, idx=None, is_fav=False):
-    
+    scroll_to_top()
     # 詳細表示
     render_saved_recipe_detail(recipe, recipe.get("servings", 2), show_buttons=False)
     
