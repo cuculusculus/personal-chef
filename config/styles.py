@@ -51,19 +51,34 @@ div[style*="position: fixed"][style*="bottom:"] {
 .stApp {
     padding-bottom: 100px;
 }
-/* ---------- 【新規】タイトル・見出しの折り返し防止 ---------- */
+/* ---------- 【修正】タイトル・見出しの折り返し防止 ---------- */
 
-/* st.title、st.header、st.subheader の文字がスマホで2行になるのを防ぐ */
-.main h1, .main h2, .main h3 {
-    white-space: nowrap !important;     /* 絶対に改行・折り返しをしない */
-    overflow: hidden !important;        /* 枠からはみ出た部分を隠す */
-    text-overflow: ellipsis !important; /* はみ出た末尾を自動で「...」にする */
+/* 
+   .main .block-container を起点にし、さらに内部のテキスト要素（spanやp、h1）まで
+   すべて強制指定することで、Streamlit本来の自動改行ルールを完全に破壊して上書きします。
+*/
+.main .block-container h1,
+.main .block-container h2,
+.main .block-container h3,
+.main .block-container h1 span,
+.main .block-container h2 span,
+.main .block-container h3 span,
+.main .block-container [data-testid="stHeaderBlockContainer"] {
+    white-space: nowrap !important;     /* 絶対に改行させない */
+    word-break: keep-all !important;    /* 単語の途中での改行も禁止 */
+    overflow: hidden !important;        /* はみ出た部分は隠す */
+    text-overflow: ellipsis !important; /* 末尾を「...」にする */
+    display: block !important;          /* インラインからブロック要素に変えて ellipsis を有効化 */
     
-    /* 
-       スマホ画面に合わせて文字サイズを少しコンパクトに自動スケーリング。
-       vw（画面幅に対するパーセント）を使うことで、デバイスに合わせて最適化されます。
-    */
-    font-size: max(1.5rem, 6vw) !important; 
+    /* スマホ画面用にサイズをコンパクトにする（h1基準） */
+    font-size: max(1.4rem, 5.5vw) !important; 
+}
+
+/* ついでにタイトル下部の余計な余白も削ってスマホ画面を広くします */
+.main .block-container [data-testid="element-container"]:has(h1, h2, h3) {
+    margin-bottom: 0.5rem !important;
+}
+
     
 /* ---------- フッターボタン内の調整 ---------- */
 
