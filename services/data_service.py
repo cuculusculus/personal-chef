@@ -24,4 +24,4 @@ def prepare_recipe_for_cooking(recipe):
     st.session_state["current_recipe_obj"] = recipe
     st.session_state["servings_input"] = recipe.get("servings", 2)
     st.session_state["recipe_generated"] = True
-    st.session_state.page = "👩‍🍳 レシピ考案" # app.pyの定数に合わせて設定
+    st.session_state.page = "recipe" # app.pyの定数に合わせて設定
