@@ -44,7 +44,7 @@ def render_stock_page_fragment():
             current_stock = st.session_state["stock_data"][cat]
             default_selected = [item for item in options if item in current_stock]
 
-            st.write("### :material/grocery: 食材一覧（タップで選択）")
+            st.write("#### :material/grocery: 食材一覧（タップで選択）")
             selected_items = st.pills("選択", options, default=default_selected, selection_mode="multi", key=f"pills_{cat}", label_visibility="collapsed") or []
 
             # 数量調整ロジック
