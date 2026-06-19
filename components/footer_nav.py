@@ -55,7 +55,7 @@ def render_footer_nav():
            最下部（bottom: 0）にすると強制バッジの下に潜り込んで押せなくなります。
            バッジの高さである「55px」の位置に浮かせることで、バッジとの重なりを完全に回避します。
         */
-        bottom: 55px !important; 
+        bottom: 50px !important; 
         
         left: 0 !important;
         width: 100% !important;
