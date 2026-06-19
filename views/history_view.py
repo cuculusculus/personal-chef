@@ -4,18 +4,31 @@ from services.data_service import toggle_favorite, delete_favorite, prepare_reci
 from views.recipe_helpers import render_saved_recipe_detail
 import streamlit.components.v1 as components
 
-def reset_scroll():
-    components.html("""
-    <script>
-        setTimeout(() => {
-            window.scrollTo(0, 0);
-            document.documentElement.scrollTop = 0;
-            document.body.scrollTop = 0;
-            const main = document.querySelector('main');
-            if (main) main.scrollTop = 0;
-        }, 30);
-    </script>
+def reset_dialog_scroll():
 
+    components.html("""
+
+    <script>
+
+    setTimeout(() => {
+
+        // ダイアログ全体
+
+        const dialog = document.querySelector('[data-testid="stDialog"]');
+        if (dialog) {
+            dialog.scrollTop = 0;
+            // 内部スクロール領域を総当たりでリセット
+            const scrollables = dialog.querySelectorAll('*');
+            scrollables.forEach(el => {
+                if (el.scrollHeight > el.clientHeight) {
+                    el.scrollTop = 0;
+                }
+            });
+        }
+        // 保険
+        window.scrollTo(0, 0);
+    }, 80);
+    </script>
     """, height=0)
 # 元通りのシンプルなダイアログ構造に復活
 @st.dialog(":material/kitchen: レシピ詳細")
