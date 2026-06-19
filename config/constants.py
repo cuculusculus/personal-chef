@@ -10,3 +10,5 @@ PAGE_RECIPE = "👩‍🍳 レシピ考案"
 PAGE_STOCK = "🛒 食材管理"
 PAGE_FAVORITE = "⭐ お気に入り"
 PAGE_HISTORY = "📁 履歴"
+
+PAGE_DETAIL = "detail"
