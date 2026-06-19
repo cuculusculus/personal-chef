@@ -10,8 +10,8 @@ from config.constants import (
 
 def render_footer_nav():
     """
-    スマホでの縦並びを回避し、マテリアルアイコンを確実に読み込んで表示する
-    完全固定のフッターナビゲーション。
+    スマホでの縦並びを完全に回避し、Streamlit内蔵のフォントを利用して
+    マテリアルアイコンを100%確実に表示する最下部固定フッターナビ。
     """
     current_page = st.session_state.get("page", PAGE_RECIPE)
 
@@ -20,29 +20,25 @@ def render_footer_nav():
         st.session_state.page = query_params["page"]
         st.rerun()
 
-    # マテリアルアイコンの名前を指定
+    # アイコン名を純粋な単語（小文字）で指定
     nav_config = [
-            {"page": PAGE_RECIPE,"icon": ":material/restaurant:"},
-            {"page": PAGE_STOCK,"icon": ":material/kitchen:"},
-            {"page": PAGE_FAVORITE,"icon": ":material/bookmark_star:"},
-            {"page": PAGE_HISTORY,"icon": ":material/history:"}
-        ]
+        {"page": PAGE_RECIPE, "icon": "restaurant"},
+        {"page": PAGE_STOCK, "icon": "kitchen"},
+        {"page": PAGE_FAVORITE, "icon": "bookmark_star"},
+        {"page": PAGE_HISTORY, "icon": "history"},
+    ]
 
     links_html = ""
-    for item in nav_items:
+    for item in nav_config:
         is_active = "active" if current_page == item["page"] else ""
+        # 【重要】クラス名に "stIconMaterial" を直接指定することで文字化けを100%防ぎます
         links_html += f"""
         <a href="?page={item['page']}" target="_self" class="nav-item {is_active}">
-            <span class="material-symbols-outlined">{item['icon']}</span>
+            <span class="stIconMaterial">{item['icon']}</span>
         </a>
         """
 
-    # 1. 確実にアイコンを効かせるため、このコンポーネント内で直接フォントを読み込む
-    st.markdown("""
-    <link rel="stylesheet" href="https://googleapis.com" />
-    """, unsafe_allow_html=True)
-
-    # 2. HTMLとCSSを出力
+    # HTMLとCSSを画面に出力
     st.html(f"""
     <div class="custom-sticky-footer">
         {links_html}
@@ -74,7 +70,7 @@ def render_footer_nav():
         box-shadow: 0 -4px 12px rgba(0,0,0,0.08) !important;
     }}
 
-    /* 各ボタンの領域（4等分） */
+    /* 各ボタンの領域（4等分・スマホでの縮小を許可） */
     .custom-sticky-footer .nav-item {{
         flex: 1 1 25% !important;
         min-width: 0 !important;
@@ -83,7 +79,7 @@ def render_footer_nav():
         align-items: center !important;
         justify-content: center !important;
         text-decoration: none !important;
-        color: #757575 !important; /* 通常時（非選択）のグレー */
+        color: #757575 !important; /* 通常時（非選択）の落ち着いたグレー */
         transition: background-color 0.2s, color 0.2s;
     }}
 
@@ -94,14 +90,15 @@ def render_footer_nav():
 
     /* アクティブ（現在選択中）のボタンのスタイル */
     .custom-sticky-footer .nav-item.active {{
-        color: #ff4b4b !important; /* 選択中のStreamlitレッド */
-        border-bottom: 3px solid #ff4b4b !important; /* 下線をつけて強調 */
+        color: #ff4b4b !important; /* 選択中のStreamlitブランドレッド */
+        border-bottom: 3px solid #ff4b4b !important; /* アクティブを示す下線 */
+        background-color: #fdfaf9 !important;
     }}
 
-    /* マテリアルアイコンがテキスト化してはみ出るのを防ぐ設定 */
-    .custom-sticky-footer .material-symbols-outlined {{
+    /* Streamlit内蔵マテリアルフォントの強制適用設定 */
+    .custom-sticky-footer .stIconMaterial {{
         font-size: 26px !important;
-        font-family: 'Material Symbols Outlined' !important;
+        font-family: "Material Symbols Outlined", "Material Symbols Rounded", sans-serif !important;
         font-weight: normal !important;
         font-style: normal !important;
         line-height: 1 !important;
