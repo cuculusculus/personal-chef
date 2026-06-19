@@ -32,49 +32,52 @@ div[data-testid="stDecoration"] {
     padding-bottom: 100px;
 }
 
-/* ---------- タイトル・見出しの折り返し防止 ---------- */
+/* ---------- タイトル・見出しの折り返し防止（完全版） ---------- */
 
 /* 
-   1. アイコン付き見出し（stHeadingWithIcon）などの親コンテナ。
-      スマホ画面からはみ出た部分を「...」にするため、親コンテナ全体の折り返しを禁止。
+   1. タイトルを包んでいるStreamlitの全階層（コンテナ、Heading、ブロック要素）に対して、
+      「画面幅100%を超えたら即座に非表示（hidden）にし、横1列（flex-direction: row）を死守する」設定を強制します。
 */
 .main .block-container [data-testid="stHeadingWithIcon"],
 .main .block-container [data-testid="stHeaderBlockContainer"],
-.main .block-container [data-testid="element-container"]:has(h1, h2, h3) {
+.main .block-container [data-testid="element-container"]:has(h1, h2, h3),
+.main .block-container h1,
+.main .block-container h2,
+.main .block-container h3 {
     min-width: 0 !important;
     max-width: 100% !important;
+    width: 100% !important;
     overflow: hidden !important;
     display: flex !important;
     flex-direction: row !important;
-    flex-wrap: nowrap !important; /* 絶対に縦に折らせない */
+    flex-wrap: nowrap !important; /* 縦への折り返しを地球上で絶対に禁止 */
     align-items: center !important;
 }
 
 /* 
-   2. 見出しタグおよび内部のすべての要素。
-      【修正】ユニバーサルセレクタ「*」のみに絞り、解析エラーが起きない安全な形に修正。
+   2. 効かなかった最大の原因である「見出し内部のすべての文字・要素（p, span, div等）」を狙い撃ち。
+      Streamlitが自動生成するインライン要素の挙動をすべて破壊し、改行なし（nowrap）と省略（ellipsis）を上書きします。
 */
-.main .block-container h1,
-.main .block-container h2,
-.main .block-container h3,
 .main .block-container h1 *,
 .main .block-container h2 *,
 .main .block-container h3 * {
-    white-space: nowrap !important;     /* 絶対に改行させない */
-    word-break: keep-all !important;    /* 単語途中での折り返しも禁止 */
-    overflow: hidden !important;        /* はみ出た部分は隠す */
-    text-overflow: ellipsis !important; /* 末尾を自動で「...」にする */
-    display: block !important;
+    white-space: nowrap !important;      /* 自動改行を完全に禁止 */
+    word-break: keep-all !important;     /* 文字の切れ目での改行も許さない */
+    overflow: hidden !important;         /* 溢れたテキストは隠す */
+    text-overflow: ellipsis !important;  /* 末尾を必ず「...」にする */
+    display: inline-block !important;    /* 1行で並べるためにインラインブロック化 */
+    max-width: 100% !important;
 }
 
 /* 
-   3. 見出しの文字サイズをスマホ向けに最適化
+   3. 文字サイズ自体が大きすぎると「...」だらけで何も読めなくなるため、
+      スマホ画面向けにフォントサイズをコンパクト（約20px〜22px前後）に強制縮小します。
 */
 .main .block-container h1,
-.main .block-container h1 span,
+.main .block-container h1 *,
 .main .block-container [data-testid="stHeadingWithIcon"] h1 p {
-    font-size: max(1.3rem, 5.5vw) !important;
-    line-height: 1.2 !important;
+    font-size: max(1.2rem, 5.2vw) !important;
+    line-height: 1.1 !important;
 }
 
 /* ---------- フッターボタン内の調整 ---------- */
@@ -93,10 +96,6 @@ div[id="fixed_footer_root"] + div button [data-testid="stIconMaterial"] {
 }
 
 /* ---------- 共通設定 ---------- */
-/* 
-   【修正】SyntaxErrorの原因だった :not() 構文を排除。
-   通常の段落テキストがスマホで適切に折り返される基本設定のみにシンプル化。
-*/
 .main .block-container p, 
 .main .block-container div {
     word-wrap: break-word;
