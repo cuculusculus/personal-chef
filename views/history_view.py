@@ -17,7 +17,15 @@ def show_recipe_detail_dialog(recipe, mode, idx=None, is_fav=False):
     with col1:
         if st.button(" 調理する", icon=":material/fork_spoon:", use_container_width=True):
             prepare_recipe_for_cooking(recipe)
-            st.rerun()
+            # 2. 【ここを追加】フッターナビのURL自動監視と連動させるため、URLのクエリを強制上書き
+            from config.constants import PAGE_RECIPE
+            st.query_params["page"] = PAGE_RECIPE
+            
+            # 3. セッションの現在地も合わせて同期
+            st.session_state.page = PAGE_RECIPE
+            
+            # 4. 【ここを変更】アプリ全体（scope="app"）をリフレッシュして一気にジャンプさせる
+            st.rerun(scope="app")
             
     with col2:
         if mode == "favorite":
