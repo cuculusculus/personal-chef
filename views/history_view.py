@@ -2,39 +2,11 @@
 import streamlit as st
 from services.data_service import toggle_favorite, delete_favorite, prepare_recipe_for_cooking
 from views.recipe_helpers import render_saved_recipe_detail
-import streamlit.components.v1 as components
 
-def reset_dialog_scroll():
-
-    components.html("""
-
-    <script>
-
-    setTimeout(() => {
-
-        // ダイアログ全体
-
-        const dialog = document.querySelector('[data-testid="stDialog"]');
-        if (dialog) {
-            dialog.scrollTop = 0;
-            // 内部スクロール領域を総当たりでリセット
-            const scrollables = dialog.querySelectorAll('*');
-            scrollables.forEach(el => {
-                if (el.scrollHeight > el.clientHeight) {
-                    el.scrollTop = 0;
-                }
-            });
-        }
-        // 保険
-        window.scrollTo(0, 0);
-    }, 80);
-    </script>
-    """, height=0)
-# 元通りのシンプルなダイアログ構造に復活
+# ダイアログ構造
 @st.dialog(":material/kitchen: レシピ詳細")
 def show_recipe_detail_dialog(recipe, mode, idx=None, is_fav=False):
-    reset_dialog_scroll()
-
+    
     # 詳細表示
     render_saved_recipe_detail(recipe, recipe.get("servings", 2), show_buttons=False)
     
