@@ -18,23 +18,14 @@ st.set_page_config(
 
 initialize_session()
 # =========================================================
-# 【超重要：新規追加】
-# フッターのボタン（URLのクエリパラメータ）が押されたかを、画面を描画する前に最優先でチェックする。
-# ページが切り替わる場合は、ここで他ページの詳細画面のデータを完全に真っさらにします。
+# 【超重要：新規追加（最外層ディフェンス）】
+# もし詳細画面を開くフラグが立っていたら、通常ページ（一覧）は1行も動かさず、
+# ここで詳細画面だけを完全ピンポイントで描画して終了します。
 # =========================================================
-current_page = st.session_state.get("page", PAGE_RECIPE)
-query_params = st.query_params
-
-if "page" in query_params and query_params["page"] != current_page:
-    # ページを更新
-    st.session_state.page = query_params["page"]
-    
-    # 詳細表示用のセッションのゴミをここで確実に全消去
-    st.session_state["selected_recipe"] = None
-    st.session_state["selected_recipe_mode"] = None
-    st.session_state["selected_recipe_idx"] = None
-    st.session_state["selected_recipe_is_fav"] = False
-    st.rerun()
+if st.session_state.get("selected_recipe") is not None:
+    render_recipe_detail_fullscreen()
+    render_footer_nav()
+    st.stop() # 以降の通常ルーティングへの突入を完全に物理ブロック
 # =========================================================
 apply_styles()
 
