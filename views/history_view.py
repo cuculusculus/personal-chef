@@ -6,19 +6,7 @@ from views.recipe_helpers import render_saved_recipe_detail
 # 元通りのシンプルなダイアログ構造に復活
 @st.dialog(":material/kitchen: レシピ詳細")
 def show_recipe_detail_dialog(recipe, mode, idx=None, is_fav=False):
-    # 1. 【ここを追加】ダイアログ内の文字サイズをスマホ向けに一回り小さくする専用CSS
-    st.html("""
-        <style>
-        /* ダイアログ内のテキストや見出しをスマホに最適化してコンパクトにする */
-        div[role="dialog"] h1, div[role="dialog"] h2, div[role="dialog"] h3 {
-            font-size: 1.2rem !important;
-            margin-top: 0 !important;
-        }
-        div[role="dialog"] p, div[role="dialog"] li {
-            font-size: 0.9rem !important;
-        }
-        </style>
-    """)
+    
     # 詳細表示
     render_saved_recipe_detail(recipe, recipe.get("servings", 2), show_buttons=False)
     
