@@ -6,6 +6,18 @@ from views.recipe_helpers import render_saved_recipe_detail
 # 共通ダイアログ：詳細を表示し、調理ボタンなどを配置する
 @st.dialog(":material/menu_book: レシピ詳細")
 def show_recipe_detail_dialog(recipe, mode, idx=None, is_fav=False):
+    # 【最重要】ダイアログが開いた瞬間に、ダイアログのスクロール要素を一番上まで強制スクロールさせるJavaScript
+    st.html(
+        """
+        <script>
+        // ダイアログ全体のスクロール可能な親要素を見つけて最上部に移動させる
+        var dialogBody = window.parent.document.querySelector('div[role="dialog"]');
+        if (dialogBody) {
+            dialogBody.scrollTop = 0;
+        }
+        </script>
+        """
+    )
     # 詳細表示（ボタンは utils 側で作らず、ここで管理）
     render_saved_recipe_detail(recipe, recipe.get("servings", 2), show_buttons=False)
     
