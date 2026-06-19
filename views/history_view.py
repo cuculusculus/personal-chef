@@ -6,15 +6,27 @@ from views.recipe_helpers import render_saved_recipe_detail
 # 共通ダイアログ：詳細を表示し、調理ボタンなどを配置する
 @st.dialog(":material/menu_book: レシピ詳細")
 def show_recipe_detail_dialog(recipe, mode, idx=None, is_fav=False):
-    # 【最重要】ダイアログが開いた瞬間に、ダイアログのスクロール要素を一番上まで強制スクロールさせるJavaScript
+    # 【決定版】ダイアログが完全に表示されたのを見計らって最上部に巻き戻すJS
     st.html(
         """
         <script>
-        // ダイアログ全体のスクロール可能な親要素を見つけて最上部に移動させる
-        var dialogBody = window.parent.document.querySelector('div[role="dialog"]');
-        if (dialogBody) {
-            dialogBody.scrollTop = 0;
-        }
+        setTimeout(function() {
+            // 1. ダイアログのスクロールを担当している要素を広く探索
+            var doc = window.parent.document;
+            var dialogContent = doc.querySelector('div[role="dialog"]') || 
+                                doc.querySelector('.stDialog') ||
+                                doc.querySelector('[data-testid="stModal"]');
+            
+            if (dialogContent) {
+                // ダイアログ本体、またはそのすぐ内側のスクロールエリアを一番上にする
+                dialogContent.scrollTop = 0;
+                
+                var innerScroll = dialogContent.querySelector('div') || dialogContent;
+                if (innerScroll) {
+                    innerScroll.scrollTop = 0;
+                }
+            }
+        }, 100); // 100ミリ秒（0.1秒）だけ待ってから確実に実行する
         </script>
         """
     )
