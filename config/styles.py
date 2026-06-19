@@ -37,20 +37,22 @@ div[data-testid="stDecoration"],
 
 /* ---------- 【新設】ダイアログの位置を最上部に強制固定 ---------- */
 /* 
-   ダイアログの背景マスク全体の位置をリセットし、
-   どんなスクロール位置から開いても必ず画面の最上部（top: 10px）にダイアログを配置します。
+   最新のStreamlitダイアログを包む「最外層の黒い背景レイヤー（stModalContainer）」を直撃。
+   画面中央に浮かすデフォルト設定を破壊し、上端（flex-start）へ強制的に引っ張り上げます。
 */
-div[data-testid="stModal"] {
-    top: 10px !important;
-    bottom: auto !important;
-    align-items: flex-start !important;
-    max-height: 85vh !important; /* スマホフッターを隠さない高さ */
+[data-testid="stModalContainer"],
+div[class*="StyledModalContainer"] {
+    align-items: flex-start !important; /* 中央ではなく、画面の上端から配置する */
+    padding-top: 10px !important;       /* 画面の上端にピタッとくっつける（好みに応じて10px〜20px） */
 }
 
-/* ダイアログ内のスクロールを上端（0）から強制スタートさせるための設定 */
-div[data-testid="stModal"] > div {
-    margin-top: 0 !important;
-    top: 0 !important;
+/* ダイアログの「白い箱（stModal）」自体の位置と高さを最適化 */
+[data-testid="stModal"],
+div[class*="StyledModal"] {
+    margin-top: 0px !important;
+    top: 0px !important;
+    max-height: 80vh !important;       /* スマホのフッターナビを隠さない絶妙な高さに制限 */
+    overflow-y: auto !important;       /* 中身が長い場合は箱の中だけでスクロールさせる */
 }
 
 /* ---------- タイトル・見出しの画面サイズ最適化 ---------- */
