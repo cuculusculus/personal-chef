@@ -147,6 +147,8 @@ def render_recipe_page():
             st.session_state["temp_dish_type"] = selected_type
             st.session_state["recipe_generated"] = False
             st.session_state["current_recipe_obj"] = None
+            if "fav_title_input" in st.session_state:
+               del st.session_state["fav_title_input"]
             update_recipe_logic(force_new=True)
             st.rerun()
     
