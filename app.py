@@ -15,12 +15,14 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="collapsed"
 )
-
+st.write("APP開始")
 # 1. セッションの初期化
 initialize_session()
-
+st.write("初期化後")
 apply_styles()
+st.write("スタイル後")
 
+st.write("現在ページ:", st.session_state.page)
 
 # 通常のルーティング
 ROUTES = {
@@ -35,6 +37,6 @@ ROUTES.get(
     st.session_state.page,
     render_recipe_page
 )()
-
+st.write("画面描画後")
 # 4. 完全固定の下部ナビゲーション
 render_footer_nav()
