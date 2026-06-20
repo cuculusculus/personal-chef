@@ -65,10 +65,11 @@ def show_fridge_dialog(all_stock, seasonings_stock):
     
 def render_recipe_page():
     st.subheader(":material/chef_hat: レシピ考案")
-    all_stock_formatted = []
-    for cat in ["meat", "fish", "vegetables", "staple", "dairy"]:
-        for k, v in st.session_state["stock_data"][cat].items():
-            all_stock_formatted.append(f"{k}({v})")
+    all_stock_formatted = [
+        f"{k}({v})"
+        for cat in ["meat", "fish", "vegetables", "staple", "dairy"]
+        for k, v in st.session_state["stock_data"][cat].items()
+    ]
     seasonings_stock = list(st.session_state["stock_data"]["seasonings"].keys())
 
     if not all_stock_formatted:
