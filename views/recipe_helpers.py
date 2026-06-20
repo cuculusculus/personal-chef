@@ -2,7 +2,7 @@ import re
 import streamlit as st
 
 # --- レシピ描画関数 ---
-def render_saved_recipe_detail(recipe, servings, show_buttons=False):
+def render_saved_recipe_detail(recipe, servings):
     if "body" in recipe and not any(k in recipe for k in ["ingredients", "instructions"]):
         st.warning("⚠️ 旧形式の保存データです。")
         return
