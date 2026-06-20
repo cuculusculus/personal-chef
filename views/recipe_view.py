@@ -157,7 +157,7 @@ def render_recipe_page():
     # )
 
     recipe = st.session_state.get("current_recipe_obj")
-    
+    st.error(f"recipe={recipe}")
     if recipe:
         st.write("現在人数:", st.session_state["servings_input"])
         st.write("保存人数:", recipe.get("servings"))
