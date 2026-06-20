@@ -5,7 +5,20 @@ from utils import (
     get_openai_client, save_json, RecipeResponseSchema
 )
 from config.constants import HISTORY_FILE
-client = get_openai_client()
+def update_recipe_logic(
+    force_new=False,
+    current_mood=None
+):
+
+    client = get_openai_client()
+
+    recipe = (
+        None
+        if force_new
+        else st.session_state.get(
+            "current_recipe_obj"
+        )
+    )
 
 # AIシステムプロンプト
 SYSTEM_PROMPT = """
