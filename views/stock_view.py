@@ -64,7 +64,7 @@ def render_stock_page_fragment():
                                     saved_val = current_stock.get(item, "1.0個")
                                     match_num = re.findall(r"[-+]?\d*\.\d+|\d+", saved_val)
                                     init_amt = float(match_num[0]) if match_num else 1.0
-                                    init_unit = saved_val.replace(str(init_amt), "").strip() or "個"
+                                    init_unit = saved_val.replace(str(init_amt), "").strip() or "g"
                                     
                                     c_name, c_amt, c_unit = st.columns([4, 3, 3])
                                     c_name.markdown(f"<div style='padding-top:8px;'><b>{item}</b></div>", unsafe_allow_html=True)
