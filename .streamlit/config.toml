@@ -1,9 +1,6 @@
 [client]
 showSidebarNavigation = false
 
-[global]
-toolbarMode = "viewer"
-
 [theme]
 primaryColor = "#f2b544"
 backgroundColor = "#FFFFFF"
