@@ -130,9 +130,27 @@ def render_recipe_page():
             料理タイプ： <b>{display_type}</b>　|　テーマ： <b>{display_mood}</b>
         </div>
     """, unsafe_allow_html=True)
-    st.slider(
-        "何人分作りますか？", min_value=1, max_value=5, key="servings_input")
-       # on_change=lambda: update_recipe_logic() if st.session_state.get("recipe_generated") else None
+    # 人数設定UI（ボタン式）
+    st.markdown("##### :material/group: 人数設定")
+    if "servings_input" not in st.session_state:
+        st.session_state["servings_input"] = 2
+
+    col1, col2, col3 = st.columns([1, 2, 1], vertical_alignment="center")
+    with col1:
+        if st.button("➖", key="dec_servings"):
+            if st.session_state["servings_input"] > 1:
+                st.session_state["servings_input"] -= 1
+    with col2:
+        st.markdown(f"<div style='text-align:center;'><b>{st.session_state['servings_input']} 人分</b></div>", unsafe_allow_html=True)
+    with col3:
+        if st.button("➕", key="inc_servings"):
+            if st.session_state["servings_input"] < 5:
+                st.session_state["servings_input"] += 1
+    
+    if st.button("この人数で再計算する", icon=":material/calculate:", use_container_width=True):
+        update_recipe_logic()
+        st.rerun()
+
     
     if not st.session_state.get("recipe_generated"):
         if st.button("Let's cook !",  icon=":material/local_dining:",type="primary", use_container_width=True):
