@@ -111,29 +111,26 @@ def render_recipe_page():
         </div>
     """, unsafe_allow_html=True)
     
-    # 人数設定UI（ボタン式）
+    # 人数設定UI（スライダー形式に戻しました）
     st.markdown("##### :material/group: 人数設定")
+    
+    # 既存のロジックに合わせて人数を保持
     if "servings_input" not in st.session_state:
         st.session_state["servings_input"] = 2
 
-    # スマホでも並びやすいよう、比率を調整
-    col1, col2, col3, col4 = st.columns([1, 1.5, 1, 2], vertical_alignment="center")
-    with col1:
-        if st.button("➖", key="dec_servings"):
-            if st.session_state["servings_input"] > 1:
-                st.session_state["servings_input"] -= 1
-                st.rerun()
-    with col2:
-        st.markdown(f"<div style='text-align:center;'><b>{st.session_state['servings_input']} 人分</b></div>", unsafe_allow_html=True)
-    with col3:
-        if st.button("➕", key="inc_servings"):
-            if st.session_state["servings_input"] < 5:
-                st.session_state["servings_input"] += 1
-                st.rerun()
-    with col4:
-        if st.button("計算", icon=":material/calculate:", use_container_width=True):
-            update_recipe_logic()
-            st.rerun()
+    # スライダー形式で設定
+    st.slider(
+        "何人分作りますか？", 
+        min_value=1, 
+        max_value=5, 
+        key="servings_input"
+    )
+    
+    # 再計算ボタン（スライダーを動かした後に押す）
+    if st.button("この人数で再計算する", icon=":material/calculate:", use_container_width=True):
+        update_recipe_logic()
+        st.rerun()
+
     
     if not st.session_state.get("recipe_generated"):
         if st.button("Let's cook !",  icon=":material/local_dining:",type="primary", use_container_width=True):
