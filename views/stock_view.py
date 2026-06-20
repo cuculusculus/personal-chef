@@ -70,7 +70,8 @@ def render_stock_page_fragment():
                                     c_name.markdown(f"<div style='padding-top:8px;'><b>{item}</b></div>", unsafe_allow_html=True)
                                     amt = c_amt.number_input("数", min_value=0.0, value=init_amt, step=0.5, key=f"n_{cat}_{item}", label_visibility="collapsed")
                                     current_index = UNIT_LIST.index(init_unit) if init_unit in UNIT_LIST else 0
-                                    unit = c_unit.selectbox("単", UNIT_LIST, index=current_index, key=f"u_{cat}_{item}", label_visibility="collapsed")
+                                    #unit = c_unit.selectbox("単", UNIT_LIST, index=current_index, key=f"u_{cat}_{item}", label_visibility="collapsed")
+                                    unit = c_unit.pills("単", UNIT_LIST, default=UNIT_LIST[current_index], selection_mode="single", key=f"u_{cat}_{item}", label_visibility="collapsed")
 
                                     if amt > 0:
                                         updated_stock[item] = f"{amt}{unit}"
