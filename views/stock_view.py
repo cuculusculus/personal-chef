@@ -61,7 +61,7 @@ def render_stock_page_fragment():
                         for j, item in enumerate(selected_items[i:i+2]):
                             with cols[j]:
                                 with st.container(border=True):
-                                    saved_val = current_stock.get(item, "1.0個")
+                                    saved_val = current_stock.get(item, "1.0g")
                                     match_num = re.findall(r"[-+]?\d*\.\d+|\d+", saved_val)
                                     init_amt = float(match_num[0]) if match_num else 1.0
                                     init_unit = saved_val.replace(str(init_amt), "").strip() or "g"
