@@ -26,7 +26,6 @@ def show_fridge_dialog(all_stock, seasonings_stock):
         if key == "seasonings": continue  # 調味料は後で別途表示
 
         # 登録済みの食材リスト(all_stock)から、カテゴリに該当するものを抽出
-        # 括弧書きがあってもマッチするように部分一致判定を使用
         found_items = [
             stock_item for stock_item in all_stock 
             if any(cat_item in stock_item for cat_item in items_in_category)
@@ -90,31 +89,13 @@ def render_recipe_page():
     theme_options = ["おまかせ", "時短（15分以内）", "ガッツリ・満腹", "ヘルシー・低糖質", "おつまみ", "✏️ 自由記入"]
     selected_theme = st.selectbox("料理のテーマは？", theme_options)
     mood = st.text_input("具体的なテーマを入力", placeholder="例：子供が喜ぶメニュー") if selected_theme == "✏️ 自由記入" else selected_theme
-    is_generated = st.session_state.get(
-    "recipe_generated"
-    )
+    is_generated = st.session_state.get("recipe_generated")
     
-    saved_type = st.session_state.get(
-        "temp_dish_type",
-        "おまかせ"
-    )
-
-    saved_mood = st.session_state.get(
-        "temp_mood",
-        "おまかせ"
-    )
-    # 料理タイプの表示判定
-    display_type = (
-        saved_type
-        if is_generated and selected_type == saved_type
-        else selected_type
-    )
-    # テーマの表示判定
-    display_mood = (
-        saved_mood
-        if is_generated and mood == saved_mood
-        else mood
-     )
+    saved_type = st.session_state.get("temp_dish_type", "おまかせ")
+    saved_mood = st.session_state.get("temp_mood", "おまかせ")
+    
+    display_type = (saved_type if is_generated and selected_type == saved_type else selected_type)
+    display_mood = (saved_mood if is_generated and mood == saved_mood else mood)
 
     st.markdown(f"""
         <div style="
@@ -128,48 +109,31 @@ def render_recipe_page():
         ">
             料理タイプ： <b>{display_type}</b>　|　テーマ： <b>{display_mood}</b>
         </div>
-    """, unsafe_allow_html=True) 
-                # 人数設定UI（HTML Flexboxで強制的に横並びにする）
+    """, unsafe_allow_html=True)
+    
+    # 人数設定UI（ボタン式）
     st.markdown("##### :material/group: 人数設定")
     if "servings_input" not in st.session_state:
         st.session_state["servings_input"] = 2
 
-    # CSSでFlexboxを指定し、中身を横並びに固定
-    st.markdown("""
-    <div style="
-        display: flex !important; 
-        align-items: center !important; 
-        justify-content: space-between !important;
-        gap: 10px !important; 
-        margin-bottom: 20px !important;
-        width: 100% !important;
-    ">
-    """, unsafe_allow_html=True)
-
-    # ➖ボタン
-    if st.button("➖", key="dec_servings"):
-        if st.session_state["servings_input"] > 1:
-            st.session_state["servings_input"] -= 1
+    # スマホでも並びやすいよう、比率を調整
+    col1, col2, col3, col4 = st.columns([1, 1.5, 1, 2], vertical_alignment="center")
+    with col1:
+        if st.button("➖", key="dec_servings"):
+            if st.session_state["servings_input"] > 1:
+                st.session_state["servings_input"] -= 1
+                st.rerun()
+    with col2:
+        st.markdown(f"<div style='text-align:center;'><b>{st.session_state['servings_input']} 人分</b></div>", unsafe_allow_html=True)
+    with col3:
+        if st.button("➕", key="inc_servings"):
+            if st.session_state["servings_input"] < 5:
+                st.session_state["servings_input"] += 1
+                st.rerun()
+    with col4:
+        if st.button("計算", icon=":material/calculate:", use_container_width=True):
+            update_recipe_logic()
             st.rerun()
-
-    # 人数表示
-    st.markdown(f"<div style='text-align:center; font-size: 1.2rem; min-width: 50px;'><b>{st.session_state['servings_input']} 人</b></div>", unsafe_allow_html=True)
-
-    # ➕ボタン
-    if st.button("➕", key="inc_servings"):
-        if st.session_state["servings_input"] < 5:
-            st.session_state["servings_input"] += 1
-            st.rerun()
-
-    # 再計算ボタン（少し幅を広げる）
-    if st.button("再計算", icon=":material/calculate:", type="primary"):
-        update_recipe_logic()
-        st.rerun()
-
-    st.markdown("</div>", unsafe_allow_html=True)
-
-
-
     
     if not st.session_state.get("recipe_generated"):
         if st.button("Let's cook !",  icon=":material/local_dining:",type="primary", use_container_width=True):
