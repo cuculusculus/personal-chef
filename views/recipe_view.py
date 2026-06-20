@@ -132,20 +132,32 @@ def render_recipe_page():
             update_recipe_logic()
             st.rerun()
     else:
-        col_recalc, col_new = st.columns(2)
-        with col_recalc:
-            if st.button("この人数で再計算", icon=":material/calculate:", use_container_width=True):
-                update_recipe_logic()
-                st.rerun()
-        
-        with col_new:
-            if st.button("別のレシピを提案", icon=":material/refresh:", use_container_width=True):
-                st.session_state["temp_mood"] = mood
-                st.session_state["temp_dish_type"] = selected_type
-                st.session_state["recipe_generated"] = False
-                st.session_state["current_recipe_obj"] = None
-                update_recipe_logic(force_new=True)
-                st.rerun()
+        # 横並び安定化CSS（このファイル内に1回だけ）
+       st.markdown("""
+       <style>
+       div[data-testid="stHorizontalBlock"] {
+           gap: 8px;
+       }
+
+       .stButton > button {
+           border-radius: 12px;
+           height: 44px;
+       }
+       </style>
+       """, unsafe_allow_html=True)
+
+       # ボタン（ここが本体）
+       col_recalc, col_new = st.columns(2, gap="small")
+
+       with col_recalc:
+           if st.button("🔁 再計算", use_container_width=True):
+               update_recipe_logic()
+               st.rerun()
+
+       with col_new:
+           if st.button("✨ 別レシピ", use_container_width=True):
+               update_recipe_logic(force_new=True)
+               st.rerun()
     
     # st.slider(
     #     "何人分作りますか？", min_value=1, max_value=5, key=f"fav_title_{recipe['id']}", 
