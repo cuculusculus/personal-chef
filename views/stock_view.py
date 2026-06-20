@@ -5,7 +5,8 @@ from config.constants import INGREDIENTS_FILE, BASE_OPTIONS_FILE
 from utils import save_json
 
 # 単位リスト定義
-UNIT_LIST = ["g", "個", "ml", "枚", "本", "束", "房", "株" , "片" , "パック", "袋", "丁", "適量"]
+#UNIT_LIST = ["g", "個", "ml", "枚", "本", "束", "房", "株" , "片" , "パック", "袋", "丁", "適量"]
+UNIT_LIST = ["g", "ml", "個", "本", "枚", "束", "房", "片" , "パック"]
 
 @st.fragment
 def render_stock_page_fragment():
