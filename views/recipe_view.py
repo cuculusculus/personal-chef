@@ -162,7 +162,7 @@ def render_recipe_page():
         st.subheader(":material/menu_book: レシピ・工程")
         with st.container(border=True):
             render_saved_recipe_detail(recipe, st.session_state["servings_input"])
-        
+        st.write("recipe_id =", recipe["id"])
         col_fav_left, col_fav_right = st.columns([4, 2], vertical_alignment="bottom")
         recipe_title_input = col_fav_left.text_input("お気に入り登録時の保存名", value=recipe["title"], key=f"fav_title_{recipe['id']}")
         if col_fav_right.button("お気に入り登録", icon=":material/bookmark_add:", use_container_width=True):
