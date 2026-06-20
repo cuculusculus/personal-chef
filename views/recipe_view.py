@@ -111,14 +111,11 @@ def render_recipe_page():
         </div>
     """, unsafe_allow_html=True)
     
-    # 人数設定UI（スライダー形式に戻しました）
-    st.markdown("##### :material/group: 人数設定")
-    
     # 既存のロジックに合わせて人数を保持
     if "servings_input" not in st.session_state:
         st.session_state["servings_input"] = 2
 
-    # スライダー形式で設定
+    # スライダー形式で人数設定
     st.slider(
         "何人分作りますか？", 
         min_value=1, 
