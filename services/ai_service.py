@@ -3,7 +3,8 @@ import uuid
 import streamlit as st
 from utils import (
     get_openai_client,
-    RecipeResponseSchema
+    RecipeResponseSchema,
+    save_json
 )
 from config.constants import HISTORY_FILE
 from config.prompts import SYSTEM_PROMPT
