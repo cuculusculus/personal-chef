@@ -151,7 +151,7 @@ def render_recipe_page():
             st.rerun()
     
     # st.slider(
-    #     "何人分作りますか？", min_value=1, max_value=5, key="servings_input", 
+    #     "何人分作りますか？", min_value=1, max_value=5, key=f"fav_title_{recipe['id']}", 
     #     on_change=lambda: update_recipe_logic() if st.session_state.get("recipe_generated") else None
     # )
 
