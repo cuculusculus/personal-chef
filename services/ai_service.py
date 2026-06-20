@@ -2,27 +2,24 @@
 import uuid
 import streamlit as st
 from utils import (
-    get_openai_client, save_json, RecipeResponseSchema
+    get_openai_client,
+    RecipeResponseSchema
 )
 from config.constants import HISTORY_FILE
 from config.prompts import SYSTEM_PROMPT
+
 def update_recipe_logic(
     force_new=False,
     current_mood=None
 ):
-
     client = get_openai_client()
 
     recipe = (
         None
         if force_new
-        else st.session_state.get(
-            "current_recipe_obj"
-        )
+        else st.session_state.get("current_recipe_obj")
     )
 
-def update_recipe_logic(force_new=False, current_mood=None):
-    recipe = None if force_new else st.session_state.get("current_recipe_obj")
     new_servings = st.session_state["servings_input"]
     
     if recipe:
