@@ -129,26 +129,35 @@ def render_recipe_page():
             料理タイプ： <b>{display_type}</b>　|　テーマ： <b>{display_mood}</b>
         </div>
     """, unsafe_allow_html=True)
-    # 人数設定UI（ボタン式）
+        # 人数設定UI（ボタン式）
     st.markdown("##### :material/group: 人数設定")
     if "servings_input" not in st.session_state:
         st.session_state["servings_input"] = 2
 
-    col1, col2, col3 = st.columns([1, 2, 1], vertical_alignment="center")
+    # 1. カラムの作成
+    col1, col2, col3, col4 = st.columns([1, 1.5, 1, 2], vertical_alignment="center")
+    
     with col1:
         if st.button("➖", key="dec_servings"):
             if st.session_state["servings_input"] > 1:
                 st.session_state["servings_input"] -= 1
+                st.rerun() # ボタン押下時に即時再描画
+    
     with col2:
-        st.markdown(f"<div style='text-align:center;'><b>{st.session_state['servings_input']} 人分</b></div>", unsafe_allow_html=True)
+        st.markdown(f"<div style='text-align:center;'><b>{st.session_state['servings_input']}人</b></div>", unsafe_allow_html=True)
+        
     with col3:
         if st.button("➕", key="inc_servings"):
             if st.session_state["servings_input"] < 5:
                 st.session_state["servings_input"] += 1
+                st.rerun() # ボタン押下時に即時再描画
     
-    if st.button("この人数で再計算する", icon=":material/calculate:", use_container_width=True):
-        update_recipe_logic()
-        st.rerun()
+    with col4:
+        # 再計算ボタンを同じ列の並びに配置
+        if st.button("計算", icon=":material/calculate:", use_container_width=True):
+            update_recipe_logic()
+            st.rerun()
+
 
     
     if not st.session_state.get("recipe_generated"):
