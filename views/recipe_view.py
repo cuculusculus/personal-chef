@@ -84,7 +84,7 @@ def render_recipe_page():
         st.session_state.show_fridge = False
 
     dish_types = ["おまかせ", "主菜（メイン）", "副菜（サイド）", "汁物・スープ"]
-    selected_type = st.selectbox("何を作りたい？", dish_types)
+    selected_type = st.selectbox("レシピのタイプは？", dish_types)
     
     theme_options = ["おまかせ", "時短（15分以内）", "ガッツリ・満腹", "ヘルシー・低糖質", "おつまみ", "✏️ 自由記入"]
     selected_theme = st.selectbox("料理のテーマは？", theme_options)
