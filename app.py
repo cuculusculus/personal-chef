@@ -33,10 +33,14 @@ ROUTES = {
 }
 
 # 3. メインコンテンツの描画
-ROUTES.get(
-    st.session_state.page,
-    render_recipe_page
-)()
+try:
+    ROUTES.get(
+        st.session_state.page,
+        render_recipe_page
+    )()
+except Exception as e:
+    st.error(type(e).__name__)
+    st.error(str(e))
 st.write("画面描画後")
 # 4. 完全固定の下部ナビゲーション
 render_footer_nav()
