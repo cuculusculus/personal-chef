@@ -157,6 +157,8 @@ def render_recipe_page():
     # )
 
     recipe = st.session_state.get("current_recipe_obj")
+    st.write("現在人数:", st.session_state["servings_input"])
+st.write("保存人数:", recipe.get("servings"))
     if recipe:
         st.write("---")
         st.subheader(":material/menu_book: レシピ・工程")
