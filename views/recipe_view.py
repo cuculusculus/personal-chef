@@ -130,9 +130,9 @@ def render_recipe_page():
         </div>
     """, unsafe_allow_html=True)
     st.slider(
-        "何人分作りますか？", min_value=1, max_value=5, key="servings_input", 
-        on_change=lambda: update_recipe_logic() if st.session_state.get("recipe_generated") else None
-    )
+        "何人分作りますか？", min_value=1, max_value=5, key="servings_input")
+       # on_change=lambda: update_recipe_logic() if st.session_state.get("recipe_generated") else None
+    
     if not st.session_state.get("recipe_generated"):
         if st.button("Let's cook !",  icon=":material/local_dining:",type="primary", use_container_width=True):
             st.session_state["temp_ingredients"] = ", ".join(all_stock_formatted)
