@@ -16,8 +16,7 @@ def show_recipe_detail_dialog(recipe, mode, idx=None, is_fav=False):
     # レシピ表示
     render_saved_recipe_detail(
         recipe,
-        recipe.get("servings", 2),
-        show_buttons=False
+        recipe.get("servings", 2)
     )
 
     st.markdown("<hr>", unsafe_allow_html=True)
