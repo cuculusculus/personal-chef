@@ -128,7 +128,8 @@ def render_recipe_page():
         ">
             料理タイプ： <b>{display_type}</b>　|　テーマ： <b>{display_mood}</b>
         </div>
-    """, unsafe_allow_html=    # 人数設定UI（HTML Flexboxで強制的に横並びにする）
+    """, unsafe_allow_html=True) 
+                # 人数設定UI（HTML Flexboxで強制的に横並びにする）
     st.markdown("##### :material/group: 人数設定")
     if "servings_input" not in st.session_state:
         st.session_state["servings_input"] = 2
