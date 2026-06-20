@@ -65,7 +65,6 @@ def show_fridge_dialog(all_stock, seasonings_stock):
     
 def render_recipe_page():
     st.subheader(":material/chef_hat: レシピ考案")
-    #frame_inspect
     all_stock_formatted = []
     for cat in ["meat", "fish", "vegetables", "staple", "dairy"]:
         for k, v in st.session_state["stock_data"][cat].items():
@@ -93,7 +92,7 @@ def render_recipe_page():
     is_generated = st.session_state.get(
     "recipe_generated"
     )
-
+    
     saved_type = st.session_state.get(
         "temp_dish_type",
         "おまかせ"
@@ -103,32 +102,18 @@ def render_recipe_page():
         "temp_mood",
         "おまかせ"
     )
-
+    # 料理タイプの表示判定
     display_type = (
         saved_type
         if is_generated and selected_type == saved_type
         else selected_type
     )
-
+    # テーマの表示判定
     display_mood = (
         saved_mood
         if is_generated and mood == saved_mood
         else mood
      )
-    
-    is_generated = st.session_state.get("recipe_generated")
-    
-    # 料理タイプの表示判定
-    if is_generated and current_ui_type == saved_type:
-        display_type = saved_type
-    else:
-        display_type = current_ui_type
-        
-    # テーマの表示判定
-    if is_generated and current_ui_mood == saved_mood:
-        display_mood = saved_mood
-    else:
-        display_mood = current_ui_mood
 
     st.markdown(f"""
         <div style="
