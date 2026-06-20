@@ -107,7 +107,7 @@ def render_recipe_page():
             font-size: 12px;
             margin-bottom: 15px;
         ">
-            料理タイプ： <b>{display_type}</b>　|　テーマ： <b>{display_mood}</b>
+            タイプ： <b>{display_type}</b>　|　テーマ： <b>{display_mood}</b>
         </div>
     """, unsafe_allow_html=True)
     
@@ -159,7 +159,6 @@ def render_recipe_page():
     
     if recipe:
         
-        st.write("---")
         st.subheader(":material/menu_book: レシピ・工程")
         with st.container(border=True):
             render_saved_recipe_detail(recipe, st.session_state["servings_input"])
