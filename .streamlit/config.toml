@@ -1,8 +1,11 @@
 [client]
 showSidebarNavigation = false
+
+[global]
 toolbarMode = "viewer"
+
 [theme]
-primaryColor = "#f2b544"  # ここを好きな色に変えるだけ
+primaryColor = "#f2b544"
 backgroundColor = "#FFFFFF"
 secondaryBackgroundColor = "#F0F2F6"
 textColor = "#262730"
