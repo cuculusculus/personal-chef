@@ -90,19 +90,31 @@ def render_recipe_page():
     theme_options = ["おまかせ", "時短（15分以内）", "ガッツリ・満腹", "ヘルシー・低糖質", "おつまみ", "✏️ 自由記入"]
     selected_theme = st.selectbox("料理のテーマは？", theme_options)
     mood = st.text_input("具体的なテーマを入力", placeholder="例：子供が喜ぶメニュー") if selected_theme == "✏️ 自由記入" else selected_theme
-    current_ui_type = selected_type  # 今まさに選んでいるもの
-    saved_type = st.session_state.get("temp_dish_type", "おまかせ")
-    if st.session_state.get("recipe_generated") and current_ui_type == saved_type:
-        display_type = saved_type
-    else:
-        display_type = current_ui_type
-    current_ui_mood = mood
-    saved_mood = st.session_state.get("temp_mood", "おまかせ")
-    
-    if st.session_state.get("recipe_generated") and current_ui_mood == saved_mood:
-        display_mood = saved_mood
-    else:
-        display_mood = current_ui_mood
+    is_generated = st.session_state.get(
+    "recipe_generated"
+    )
+
+    saved_type = st.session_state.get(
+        "temp_dish_type",
+        "おまかせ"
+    )
+
+    saved_mood = st.session_state.get(
+        "temp_mood",
+        "おまかせ"
+    )
+
+    display_type = (
+        saved_type
+        if is_generated and selected_type == saved_type
+        else selected_type
+    )
+
+    display_mood = (
+        saved_mood
+        if is_generated and mood == saved_mood
+        else mood
+     )
     
     is_generated = st.session_state.get("recipe_generated")
     
