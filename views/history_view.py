@@ -81,7 +81,7 @@ def show_recipe_detail_dialog(recipe, mode, idx=None, is_fav=False):
 # お気に入り画面
 def render_favorite_page():
 
-    st.subheader(":material/bookmark_star: お気に入り")
+    st.subheader(":material/bookmark_star: Favorites")
 
     if not st.session_state.favorite_recipes:
         st.info("お気に入りに登録されたレシピはまだありません。")
@@ -104,7 +104,7 @@ def render_favorite_page():
 # 履歴画面
 def render_history_page():
 
-    st.subheader(":material/overview: 履歴")
+    st.subheader(":material/overview: Cooking Log")
 
     if not st.session_state.recipe_history:
         st.info("過去に提案されたレシピ履歴はありません。")
