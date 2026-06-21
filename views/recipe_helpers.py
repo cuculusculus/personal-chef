@@ -6,7 +6,7 @@ def render_saved_recipe_detail(recipe, servings):
     if "body" in recipe and not any(k in recipe for k in ["ingredients", "instructions"]):
         st.warning("⚠️ 旧形式の保存データです。")
         return
-    st.write(repr(recipe.get("ingredients")))
+
     # --- 1. パース処理 ---
     title = recipe.get("title", "無題のレシピ")
     cook_time = recipe.get("cook_time", "—")
