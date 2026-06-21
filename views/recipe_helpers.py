@@ -83,15 +83,15 @@ def render_saved_recipe_detail(recipe, servings):
                  "</ol>"
     # --- 2. レンダリング ---
     #st.subheader(f":material/restaurant: {title}")
+    st.markdown(f"### :material/restaurant: {title}")
+
     st.markdown(
         f"""
         <div style="
             font-size:clamp(18px, 2.2vw, 28px);
             font-weight:700;
             word-break:keep-all;
-        ">
-            :material/restaurant: {title}
-        </div>
+        "></div>
         """,
         unsafe_allow_html=True
     )
