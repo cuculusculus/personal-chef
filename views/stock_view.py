@@ -20,7 +20,7 @@ def render_stock_page_fragment():
         </style>
     """, unsafe_allow_html=True)
 
-    st.subheader(":material/grocery: パントリー")
+    st.subheader(":material/grocery: Pantry")
     #st.caption("冷蔵庫にある食材をタップして登録・数量を調整できます。")
     
 
