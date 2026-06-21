@@ -30,8 +30,10 @@ def show_recipe_detail_dialog(recipe, mode, idx=None, is_fav=False):
             key=f"reopen_{recipe['id']}",
             use_container_width=True
         ):
+            from config.constants import PAGE_RECIPE
+
+            st.session_state.page = PAGE_RECIPE
             
-            st.toast("ボタン押された")
             # レシピ本体
             st.session_state["current_recipe_obj"] = recipe
             st.session_state["recipe_generated"] = True
