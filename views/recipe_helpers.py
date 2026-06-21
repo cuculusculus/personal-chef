@@ -85,7 +85,10 @@ def render_saved_recipe_detail(recipe, servings):
     # --- 2. レンダリング ---
     st.subheader(f":material/restaurant: {title}")
     st.markdown(f"##### :material/timer: 調理時間の目安: {cook_time}")
-    st.markdown("---")
+    st.markdown(
+        "<hr style='margin:4px 0; border:0; border-top:1px solid #eee;'>",
+        unsafe_allow_html=True
+    )
     
     st.markdown(f"#### :material/shopping_cart: 食材 ({servings}人分)")
     st.markdown(ing_html, unsafe_allow_html=True)
