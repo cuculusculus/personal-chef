@@ -72,7 +72,7 @@ def render_recipe_page():
     seasonings_stock = list(st.session_state["stock_data"]["seasonings"].keys())
 
     if not all_stock_formatted:
-        st.info(":material/shopping_cart: まずは下部メニューの「食材」ページから冷蔵庫の中身を登録してね！")
+        st.info(":material/kitchen: まずは下部メニューの「食材」ページから冷蔵庫の中身を登録してね！")
         return
     
     if st.button("登録している食材を確認", icon=":material/frame_inspect:", use_container_width=True):
