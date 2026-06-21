@@ -16,9 +16,9 @@ def render_footer_nav():
     current_page = st.session_state.get("page", PAGE_RECIPE)
 
     query_params = st.query_params
-    if "page" in query_params and query_params["page"] != current_page:
-        st.session_state.page = query_params["page"]
-        st.rerun()
+    if "page" not in query_params:
+
+        st.query_params["page"] = current_page
 
     nav_config = [
         {"page": PAGE_RECIPE, "icon": "restaurant"},
