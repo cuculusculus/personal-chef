@@ -140,8 +140,9 @@ def render_recipe_page():
        }
 
        .stButton > button {
-           border-radius: 12px;
+           border-radius: 10px;
            height: 44px;
+           font-size: 13px;
        }
        </style>
        """, unsafe_allow_html=True)
