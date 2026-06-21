@@ -90,8 +90,14 @@ def render_saved_recipe_detail(recipe, servings):
         <div style="
             font-size:clamp(18px, 2.2vw, 28px);
             font-weight:700;
+            line-height:1.2;
+            width:100%;
+            max-width:900px;
+            margin:0 auto 6px auto;
             word-break:keep-all;
-        "></div>
+        ">
+            {title}
+        </div>
         """,
         unsafe_allow_html=True
     )
