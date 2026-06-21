@@ -216,6 +216,8 @@ def render_recipe_page():
                key="btn_new_recipe",
                use_container_width=True
            ):
+               st.session_state["temp_mood"] = mood
+               st.session_state["temp_dish_type"] = selected_type
                update_recipe_logic(force_new=True)
                st.rerun()
     
