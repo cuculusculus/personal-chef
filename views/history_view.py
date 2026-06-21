@@ -6,9 +6,9 @@ from services.data_service import (
     delete_favorite,
     prepare_recipe_for_cooking
 )
-
 from views.recipe_helpers import render_saved_recipe_detail
-
+def prepare_recipe_for_cooking(recipe):
+    st.toast("prepare_recipe_for_cooking実行")
 # ダイアログ
 @st.dialog(":material/menu_book: レシピ詳細")
 def show_recipe_detail_dialog(recipe, mode, idx=None, is_fav=False):
