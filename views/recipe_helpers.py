@@ -12,10 +12,36 @@ def render_saved_recipe_detail(recipe, servings):
     title = recipe.get("title", "無題のレシピ")
     cook_time = recipe.get("cook_time", "—")
     
-    ing_parts = re.split(r'[\n、,・]', recipe.get("ingredients", ""))
+    ingredients_text = recipe.get("ingredients", "")
+
+    # まず正規化
+    ingredients_text = (
+        ingredients_text
+        .replace("\\n", "\n")  # 文字列の \n 対策
+        .replace("・", "\n")   # bullet を改行扱いに統一
+    )
+
+    # 改行ベースで分割
+    ing_parts = [
+        i.strip(" ・")
+        for i in ingredients_text.split("\n")
+        if i.strip()
+    ]
     ing_html = "<ul>" + "".join([f"<li>{i.strip()}</li>" for i in ing_parts if i.strip()]) + "</ul>"
     
-    sea_parts = re.split(r'[\n、,・]', recipe.get("seasonings", "基本調味料"))
+    seasonings_text = recipe.get("seasonings", "基本調味料")
+
+    seasonings_text = (
+        seasonings_text
+        .replace("\\n", "\n")
+        .replace("・", "\n")
+    )
+
+    sea_parts = [
+        s.strip(" ・")
+        for s in seasonings_text.split("\n")
+        if s.strip()
+    ]
     sea_html = "<ul>" + "".join([f"<li>{s.strip()}</li>" for s in sea_parts if s.strip()]) + "</ul>"
 
     # 栄養成分パース
