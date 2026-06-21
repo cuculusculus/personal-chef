@@ -25,8 +25,27 @@ def show_recipe_detail_dialog(recipe, mode, idx=None, is_fav=False):
     col1, col2 = st.columns(2)
 
     with col1:
-        if st.button("調理する", icon=":material/fork_spoon:", use_container_width=True):
-            prepare_recipe_for_cooking(recipe)
+        if st.button(
+            "再表示",
+            icon=":material/restaurant:",
+            use_container_width=True
+        ):
+            # レシピ本体
+            st.session_state["current_recipe_obj"] = recipe
+            st.session_state["recipe_generated"] = True
+
+            # 人数
+            st.session_state["servings_input"] = recipe.get("servings", 2)
+
+            # タイプ・テーマ復元
+            st.session_state["temp_dish_type"] = recipe.get(
+                "dish_type",
+                "おまかせ"
+            )
+            st.session_state["temp_mood"] = recipe.get(
+                "mood",
+                "おまかせ"
+            )
 
             from config.constants import PAGE_RECIPE
             st.session_state.page = PAGE_RECIPE
