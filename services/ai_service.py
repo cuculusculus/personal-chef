@@ -56,6 +56,8 @@ def update_recipe_logic(
         "title": recipe_data.title,
         "cook_time": recipe_data.cook_time,
         "servings": new_servings,
+        "dish_type": st.session_state.get("temp_dish_type", "おまかせ"),
+        "mood": st.session_state.get("temp_mood", "おまかせ"),
         "ingredients": recipe_data.ingredients,
         "seasonings": recipe_data.seasonings,
         "instructions": recipe_data.instructions,
