@@ -28,13 +28,8 @@ def show_recipe_detail_dialog(recipe, mode, idx=None, is_fav=False):
             icon=":material/restaurant:",
             use_container_width=True
         ):
-            with col1:
-    if st.button(
-        "再表示",
-        icon=":material/restaurant:",
-        use_container_width=True
-    ):
-        st.toast("ボタン押された")
+            
+            st.toast("ボタン押された")
             # レシピ本体
             st.session_state["current_recipe_obj"] = recipe
             st.session_state["recipe_generated"] = True
