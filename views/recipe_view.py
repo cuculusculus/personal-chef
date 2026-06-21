@@ -151,7 +151,8 @@ def render_recipe_page():
        with st.container(horizontal=True):
 
            if st.button(
-               "🔁 再計算",
+               "再計算",
+               icon=":material/groups:",
                key="btn_recalc",
                use_container_width=True
            ):
@@ -159,7 +160,8 @@ def render_recipe_page():
                st.rerun()
 
            if st.button(
-               "✨ 別レシピ",
+               "別レシピ",
+               icon=":material/autorenew:",
                key="btn_new_recipe",
                use_container_width=True
            ):
