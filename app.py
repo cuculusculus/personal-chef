@@ -30,7 +30,6 @@ ROUTES = {
 }
 
 # 3. メインコンテンツの描画
-st.write("現在ページ:", st.session_state.page)
 ROUTES.get(
     st.session_state.page,
     render_recipe_page
