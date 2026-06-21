@@ -73,10 +73,9 @@ def render_saved_recipe_detail(recipe, servings):
     
     steps = []
     for line in lines:
-        # 数字や記号を削除
-        clean_step = re.sub(r'^[0-9０-９]+[.\.．、,，\s\-─:：)）\]］>＞]*|^[①-⑨]\s*', '', line).strip()
-        if clean_step:
-            steps.append(clean_step)
+        line = line.strip()
+        if line:
+            steps.append(line)
             
     # 各行を明示的に <li> と改行で構成する
     steps_html = "<ol style='padding-left: 0px; margin: 0;'>" + \
