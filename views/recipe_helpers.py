@@ -83,22 +83,7 @@ def render_saved_recipe_detail(recipe, servings):
                  "</ol>"
     # --- 2. レンダリング ---
     #st.subheader(f":material/restaurant: {title}")
-    st.markdown(
-        f"""
-        <div style="
-            font-size:clamp(18px, 2.2vw, 28px);
-            font-weight:700;
-            line-height:1.2;
-            max-width:900px;
-            margin:0 auto 6px auto;
-            word-break:keep-all;
-            overflow-wrap:break-word;
-        ">
-            {title}
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+    st.markdown(f"#### :material/restaurant: {title}")
     st.markdown(f"##### :material/timer: 調理時間の目安: {cook_time}")
     st.markdown(
         "<hr style='margin:2px 0; border:0; border-top:1px solid #eee;'>",
