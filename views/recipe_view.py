@@ -151,8 +151,8 @@ def render_recipe_page():
        with st.container(horizontal=True):
 
            if st.button(
-               "再計算",
-               icon=":material/groups:",
+               "人数変更",
+               icon=":material/reset_settings:",
                key="btn_recalc",
                use_container_width=True
            ):
@@ -161,7 +161,7 @@ def render_recipe_page():
 
            if st.button(
                "別レシピ",
-               icon=":material/autorenew:",
+               icon=":material/directory_sync:",
                key="btn_new_recipe",
                use_container_width=True
            ):
