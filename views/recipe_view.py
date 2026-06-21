@@ -148,15 +148,21 @@ def render_recipe_page():
        """, unsafe_allow_html=True)
 
        # ボタン（ここが本体）
-       col_recalc, col_new = st.columns([1, 1], gap="small")
+       with st.container(horizontal=True):
 
-       with col_recalc:
-           if st.button("🔁 再計算", use_container_width=True):
+           if st.button(
+               "🔁 再計算",
+               key="btn_recalc",
+               use_container_width=True
+           ):
                update_recipe_logic()
                st.rerun()
 
-       with col_new:
-           if st.button("✨ 別レシピ", use_container_width=True):
+           if st.button(
+               "✨ 別レシピ",
+               key="btn_new_recipe",
+               use_container_width=True
+           ):
                update_recipe_logic(force_new=True)
                st.rerun()
     
