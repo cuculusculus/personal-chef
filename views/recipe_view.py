@@ -139,21 +139,6 @@ def render_recipe_page():
         )
     else:
         mood = selected_theme 
-   # theme_options = ["おまかせ", "時短（15分以内）", "ガッツリ・満腹", "ヘルシー・低糖質", "おつまみ", "✏️ 自由記入"]
-   # saved_theme = st.session_state.get(
-     #   "temp_mood",
-      #  "おまかせ"
-   # )
-
-   # selected_theme = st.selectbox(
-      #  "料理のテーマは？",
-      #  theme_options,
-      #  index=theme_options.index(saved_theme)
-      #      if saved_theme in theme_options
-     #       else 0
-    #)
- 
-    #mood = st.text_input("具体的なテーマを入力", placeholder="例：子供が喜ぶメニュー") if selected_theme == "✏️ 自由記入" else selected_theme
     
     is_generated = st.session_state.get("recipe_generated")
     
@@ -234,18 +219,13 @@ def render_recipe_page():
                update_recipe_logic(force_new=True)
                st.rerun()
     
-    # st.slider(
-    #     "何人分作りますか？", min_value=1, max_value=5, key=f"fav_title_{recipe['id']}", 
-    #     on_change=lambda: update_recipe_logic() if st.session_state.get("recipe_generated") else None
-    # )
-
     recipe = st.session_state.get("current_recipe_obj")
     
     if recipe:
         
         st.subheader(":material/menu_book: レシピ・工程")
         with st.container(border=True):
-            render_saved_recipe_detail(recipe, st.session_state["servings_input"])
+            render_saved_recipe_detail(recipe, recipe.get("servings", 2))
     
         col_fav_left, col_fav_right = st.columns([4, 2], vertical_alignment="bottom")
         recipe_title_input = col_fav_left.text_input("お気に入り登録時の保存名", value=recipe["title"], key=f"fav_title_{recipe['id']}")
