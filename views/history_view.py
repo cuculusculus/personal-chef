@@ -23,9 +23,11 @@ def show_recipe_detail_dialog(recipe, mode, idx=None, is_fav=False):
     col1, col2 = st.columns(2)
 
     with col1:
+        st.write("ボタン描画")
         if st.button(
             "再表示",
             icon=":material/restaurant:",
+            key=f"reopen_{recipe['id']}",
             use_container_width=True
         ):
             
