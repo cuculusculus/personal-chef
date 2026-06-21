@@ -7,7 +7,7 @@ from utils import (
 from services.ai_service import update_recipe_logic
 from views.recipe_helpers import render_saved_recipe_detail
 
-@st.dialog(":material/kitchen: 現在の冷蔵庫の中身")
+@st.dialog(":material/kitchen: 保有している食材")
 def show_fridge_dialog(all_stock, seasonings_stock):
     # 日本語ラベルとアイコンの定義
     label_map = {
@@ -72,7 +72,7 @@ def render_recipe_page():
     seasonings_stock = list(st.session_state["stock_data"]["seasonings"].keys())
 
     if not all_stock_formatted:
-        st.info(":material/kitchen: 下部メニューの「食材」ページで保有中の食材/調味料を登録してください。")
+        st.info("下部メニューの「:material/kitchen:」ページで保有中の食材/調味料を登録してください。")
         return
     
     if st.button("登録している食材を確認", icon=":material/frame_inspect:", use_container_width=True):
