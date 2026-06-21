@@ -51,9 +51,7 @@ def show_recipe_detail_dialog(recipe, mode, idx=None, is_fav=False):
                 "おまかせ"
             )
 
-            from config.constants import PAGE_RECIPE
-            st.session_state.page = PAGE_RECIPE
-            st.write("PAGE:", st.session_state.page)
+            st.query_params["page"] = PAGE_RECIPE
             st.rerun()
 
     with col2:
