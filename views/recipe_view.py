@@ -96,22 +96,65 @@ def render_recipe_page():
             else 0
 
     )
-    
-    theme_options = ["おまかせ", "時短（15分以内）", "ガッツリ・満腹", "ヘルシー・低糖質", "おつまみ", "✏️ 自由記入"]
+    theme_options = [
+        "おまかせ",
+        "時短（15分以内）",
+        "ガッツリ・満腹",
+        "ヘルシー・低糖質",
+        "おつまみ",
+        "✏️ 自由記入"
+    ]
+
     saved_theme = st.session_state.get(
         "temp_mood",
         "おまかせ"
     )
 
+    # 自由入力テーマか判定
+    is_custom_theme = saved_theme not in [
+        "おまかせ",
+        "時短（15分以内）",
+        "ガッツリ・満腹",
+        "ヘルシー・低糖質",
+        "おつまみ"
+    ]
+
+    default_theme = (
+        "✏️ 自由記入"
+        if is_custom_theme
+        else saved_theme
+    )
+
     selected_theme = st.selectbox(
         "料理のテーマは？",
         theme_options,
-        index=theme_options.index(saved_theme)
-            if saved_theme in theme_options
-            else 0
+        index=theme_options.index(default_theme)
     )
+
+    if selected_theme == "✏️ 自由記入":
+        mood = st.text_input(
+            "具体的なテーマを入力",
+            value=saved_theme if is_custom_theme else "",
+            placeholder="例：子供が喜ぶメニュー"
+        )
+    else:
+        mood = selected_theme 
+   # theme_options = ["おまかせ", "時短（15分以内）", "ガッツリ・満腹", "ヘルシー・低糖質", "おつまみ", "✏️ 自由記入"]
+   # saved_theme = st.session_state.get(
+     #   "temp_mood",
+      #  "おまかせ"
+   # )
+
+   # selected_theme = st.selectbox(
+      #  "料理のテーマは？",
+      #  theme_options,
+      #  index=theme_options.index(saved_theme)
+      #      if saved_theme in theme_options
+     #       else 0
+    #)
+ 
+    #mood = st.text_input("具体的なテーマを入力", placeholder="例：子供が喜ぶメニュー") if selected_theme == "✏️ 自由記入" else selected_theme
     
-    mood = st.text_input("具体的なテーマを入力", placeholder="例：子供が喜ぶメニュー") if selected_theme == "✏️ 自由記入" else selected_theme
     is_generated = st.session_state.get("recipe_generated")
     
     saved_type = st.session_state.get("temp_dish_type", "おまかせ")
