@@ -84,7 +84,7 @@ def render_favorite_page():
     st.subheader(":material/bookmark_star: Favorites")
 
     if not st.session_state.favorite_recipes:
-        st.info("お気に入りに登録されたレシピはまだありません。")
+        st.info("お気に入り登録されたレシピはありません。")
         return
 
     for idx, recipe in enumerate(st.session_state.favorite_recipes):
@@ -107,7 +107,7 @@ def render_history_page():
     st.subheader(":material/overview: Cooking Log")
 
     if not st.session_state.recipe_history:
-        st.info("過去に提案されたレシピ履歴はありません。")
+        st.info("過去に提案されたレシピはありません。")
         return
 
     for idx, recipe in enumerate(st.session_state.recipe_history):
