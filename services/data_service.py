@@ -25,3 +25,4 @@ def prepare_recipe_for_cooking(recipe):
     st.session_state["servings_input"] = recipe.get("servings", 2)
     st.session_state["recipe_generated"] = True
     st.session_state.page = PAGE_RECIPE # app.pyの定数に合わせて設定
+    st.query_params["page"] = PAGE_RECIPE
