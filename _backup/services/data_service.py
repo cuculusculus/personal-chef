@@ -1,7 +1,7 @@
 # services/data_service.py
 import streamlit as st
-from utils import save_json, FAVORITE_FILE
-
+from utils import save_json
+from config.constants import FAVORITE_FILE, PAGE_RECIPE
 def toggle_favorite(recipe):
     """お気に入りの追加/削除を切り替える"""
     recipe_id = recipe.get("id")
@@ -24,4 +24,5 @@ def prepare_recipe_for_cooking(recipe):
     st.session_state["current_recipe_obj"] = recipe
     st.session_state["servings_input"] = recipe.get("servings", 2)
     st.session_state["recipe_generated"] = True
-    st.session_state.page = "👩‍🍳 レシピ考案" # app.pyの定数に合わせて設定
+    st.session_state.page = PAGE_RECIPE # app.pyの定数に合わせて設定
+    st.query_params["page"] = PAGE_RECIPE
