@@ -1,10 +1,12 @@
 # views/stock_view.py
 import streamlit as st
 import re
-from utils import save_json, INGREDIENTS_FILE, BASE_OPTIONS_FILE
+from config.constants import INGREDIENTS_FILE, BASE_OPTIONS_FILE
+from utils import save_json
 
 # 単位リスト定義
-UNIT_LIST = ["個", "g", "ml", "枚",  "本", "束", "パック", "丁", "片", "適量"]
+#UNIT_LIST = ["g", "個", "ml", "枚", "本", "束", "房", "株" , "片" , "パック", "袋", "丁", "適量"]
+UNIT_LIST = ["g", "ml", "個", "本", "枚", "束", "房", "片" , "パック"]
 
 @st.fragment
 def render_stock_page_fragment():
@@ -18,15 +20,16 @@ def render_stock_page_fragment():
         </style>
     """, unsafe_allow_html=True)
 
-    st.title(":material/grocery: 持っている食材の管理")
-    st.caption("ボタンをタップして選択（色付き）にすると、冷蔵庫に登録されます。数量もその場で設定可能です。")
+    st.subheader(":material/grocery: Pantry")
+    #st.caption("冷蔵庫にある食材をタップして登録・数量を調整できます。")
+    
 
     # タブ設定
     #tabs = st.tabs(["🥩 肉類", "🐟 魚介類", "🥬 野菜類", "🍚 主食", "🥛 卵・乳製品・豆類", "🧂 調味料"])
     tabs = st.tabs([
     ":material/yakitori: 肉類", 
     ":material/set_meal: 魚介類", 
-    ":material/grass: 野菜類", 
+    ":material/spa: 野菜類", 
     ":material/washoku: 主食", 
     ":material/egg: 卵・乳製品・豆類", 
     ":material/air_freshener: 調味料"
@@ -42,7 +45,10 @@ def render_stock_page_fragment():
             current_stock = st.session_state["stock_data"][cat]
             default_selected = [item for item in options if item in current_stock]
 
-            st.write("### :material/restaurant_menu: 食材一覧（タップで選択）")
+            st.markdown(
+                '##### 食材一覧 <span style="font-size: 0.7em; font-weight: bold;">（タップで選択）</span>', 
+                unsafe_allow_html=True
+            )
             selected_items = st.pills("選択", options, default=default_selected, selection_mode="multi", key=f"pills_{cat}", label_visibility="collapsed") or []
 
             # 数量調整ロジック
@@ -55,17 +61,17 @@ def render_stock_page_fragment():
                         for j, item in enumerate(selected_items[i:i+2]):
                             with cols[j]:
                                 with st.container(border=True):
-                                    saved_val = current_stock.get(item, "1.0個")
+                                    saved_val = current_stock.get(item, "1.0g")
                                     match_num = re.findall(r"[-+]?\d*\.\d+|\d+", saved_val)
                                     init_amt = float(match_num[0]) if match_num else 1.0
-                                    init_unit = saved_val.replace(str(init_amt), "").strip() or "個"
+                                    init_unit = saved_val.replace(str(init_amt), "").strip() or "g"
                                     
                                     c_name, c_amt, c_unit = st.columns([4, 3, 3])
                                     c_name.markdown(f"<div style='padding-top:8px;'><b>{item}</b></div>", unsafe_allow_html=True)
                                     amt = c_amt.number_input("数", min_value=0.0, value=init_amt, step=0.5, key=f"n_{cat}_{item}", label_visibility="collapsed")
                                     current_index = UNIT_LIST.index(init_unit) if init_unit in UNIT_LIST else 0
                                     unit = c_unit.selectbox("単", UNIT_LIST, index=current_index, key=f"u_{cat}_{item}", label_visibility="collapsed")
-
+                                    
                                     if amt > 0:
                                         updated_stock[item] = f"{amt}{unit}"
                 else:
