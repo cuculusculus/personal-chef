@@ -67,7 +67,7 @@ def render_saved_recipe_detail(recipe, servings):
     else:
         nut_content = "<div style='padding:10px; border:1px solid #ddd;'>栄養成分データなし</div>"
 
-    # 作り方パース（確実にリストとして表示させる）
+    # 作り方パース
     raw_instructions = recipe.get("instructions", "手順データなし")
     lines = str(raw_instructions).split('\n')
     
@@ -92,14 +92,10 @@ def render_saved_recipe_detail(recipe, servings):
     
     st.markdown(f"#### :material/shopping_cart: 食材 ({servings}人分)")
     st.markdown(ing_html, unsafe_allow_html=True)
-    
     st.markdown(f"#### :material/air_freshener: 調味料")
     st.markdown(sea_html, unsafe_allow_html=True)
-    
     st.markdown(f"#### :material/bar_chart_4_bars: 栄養成分目安 (1人分)")
-    # 【重要】ここで unsafe_allow_html=True を指定することで span タグが有効になります
     st.markdown(nut_content, unsafe_allow_html=True)
-    
     st.markdown(f"#### :material/skillet: 作り方")
     st.markdown(steps_html, unsafe_allow_html=True)
 
