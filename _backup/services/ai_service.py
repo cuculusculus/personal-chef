@@ -2,14 +2,25 @@
 import uuid
 import streamlit as st
 from utils import (
-    get_openai_client, save_json, SYSTEM_PROMPT, 
-    RecipeResponseSchema, HISTORY_FILE
+    get_openai_client,
+    RecipeResponseSchema,
+    save_json
 )
+from config.constants import HISTORY_FILE
+from config.prompts import SYSTEM_PROMPT
 
-client = get_openai_client()
+def update_recipe_logic(
+    force_new=False,
+    current_mood=None
+):
+    client = get_openai_client()
 
-def update_recipe_logic(force_new=False, current_mood=None):
-    recipe = None if force_new else st.session_state.get("current_recipe_obj")
+    recipe = (
+        None
+        if force_new
+        else st.session_state.get("current_recipe_obj")
+    )
+
     new_servings = st.session_state["servings_input"]
     
     if recipe:
@@ -29,7 +40,7 @@ def update_recipe_logic(force_new=False, current_mood=None):
     """
 
     try:
-        with st.spinner("AIシェフが計算中... 👩‍🍳"):
+        with st.spinner(":material/skillet::material/smart_toy: Testing Recipes . . ."):
             response = client.beta.chat.completions.parse(
                 model="gpt-4o-mini",
                 messages=[{"role": "system", "content": SYSTEM_PROMPT}, {"role": "user", "content": user_content}],
@@ -45,6 +56,8 @@ def update_recipe_logic(force_new=False, current_mood=None):
         "title": recipe_data.title,
         "cook_time": recipe_data.cook_time,
         "servings": new_servings,
+        "dish_type": st.session_state.get("temp_dish_type", "おまかせ"),
+        "mood": st.session_state.get("temp_mood", "おまかせ"),
         "ingredients": recipe_data.ingredients,
         "seasonings": recipe_data.seasonings,
         "instructions": recipe_data.instructions,
