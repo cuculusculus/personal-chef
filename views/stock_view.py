@@ -87,15 +87,20 @@ def render_stock_page_fragment():
             if st.session_state["stock_data"][cat] != updated_stock:
                 st.session_state["stock_data"][cat] = updated_stock
                 needs_save = True
-            with st.form(key=f"form_{cat}", clear_on_submit=True):
+           
+            ## 新規追加フォーム
+            st.write("---")
 
-                st.text_input(
-                    f"{label}の新規追加",
-                    placeholder="スペース区切りで複数追加可能",
-                    label_visibility="collapsed"
-                )
+            new_items_str = st.text_input(
+                f"{label}の新規追加",
+                placeholder="スペース区切りで複数追加可能",
+                key=f"debug_input_{cat}"
+            )
 
-                st.form_submit_button("追加")
+            st.button(
+                "追加",
+                key=f"debug_btn_{cat}"
+            )
             
 
             # マスター削除機能
