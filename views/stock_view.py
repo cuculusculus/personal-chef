@@ -88,14 +88,42 @@ def render_stock_page_fragment():
             st.write("---")
             
             with st.form(key=f"form_{cat}", clear_on_submit=True):
+                col_input, col_btn = st.columns([4, 1])
 
-                st.text_input(
+                new_items_str = col_input.text_input(
                     f"{label}の新規追加",
                     placeholder="スペース区切りで複数追加可能",
                     label_visibility="collapsed"
                 )
 
-                st.form_submit_button("追加")
+                with col_btn:
+                    submitted = st.form_submit_button(
+                        "追加",
+                        icon=":material/add:"
+                    )
+
+                if submitted:
+
+                    items = re.split(r'[\s、,]+', new_items_str.strip())
+
+                    for item in items:
+                        if item.strip():
+
+                            item_strip = item.strip()
+
+                            if item_strip not in st.session_state["base_options"][cat]:
+                                st.session_state["base_options"][cat].append(item_strip)
+
+                            st.session_state["stock_data"][cat][item_strip] = "1.0個"
+
+                    save_json(
+                        BASE_OPTIONS_FILE,
+                        st.session_state["base_options"]
+                    )
+
+                    needs_save = True
+
+                    st.rerun()
 
             # マスター削除機能
             with st.expander(":material/settings: マスターから完全に削除する"):
