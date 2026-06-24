@@ -8,7 +8,7 @@ from utils import save_json
 #UNIT_LIST = ["g", "個", "ml", "枚", "本", "束", "房", "株" , "片" , "パック", "袋", "丁", "適量"]
 UNIT_LIST = ["g", "ml", "個", "本", "枚", "束", "房", "片" , "パック"]
 
-@st.fragment
+#@st.fragment
 def render_stock_page_fragment():
     # CSSのカスタマイズ（タブの文字サイズ調整）
     st.markdown("""
