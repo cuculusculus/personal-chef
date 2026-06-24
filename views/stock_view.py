@@ -43,11 +43,7 @@ def render_stock_page_fragment():
         with tab:
             options = sorted(list(set(st.session_state["base_options"][cat])))
             current_stock = st.session_state["stock_data"][cat]
-            st.write(f"cat={cat}")
-            st.write(f"base_options exists={'base_options' in st.session_state}")
-            st.write(f"stock_data exists={'stock_data' in st.session_state}")
-            st.write(f"options={len(options)}")
-            st.write(f"current_stock={len(current_stock)}")
+            
             default_selected = [item for item in options if item in current_stock]
 
             st.markdown(
@@ -90,13 +86,13 @@ def render_stock_page_fragment():
 
             ## 新規追加フォーム
             st.write("---")
-            st.write(f"FORM START: {cat}")
+            
             with st.form(key=f"form_{cat}", clear_on_submit=True):
                 col_input, col_btn = st.columns([4, 1])
                 new_items_str = col_input.text_input(f"{label}の新規追加", placeholder="スペース区切りで複数追加可能", label_visibility="collapsed")
-                st.write("BEFORE SUBMIT")
+                
                 if col_btn.form_submit_button("追加", icon=":material/add:"):# and new_items_str:
-                    st.write("AFTER SUBMIT")
+                   
                     # 【ここを修正】re.splitで、空白文字(全角半角含む)とカンマで分割
                     items = re.split(r'[\s、,]+', new_items_str.strip())
                     
