@@ -43,6 +43,11 @@ def render_stock_page_fragment():
         with tab:
             options = sorted(list(set(st.session_state["base_options"][cat])))
             current_stock = st.session_state["stock_data"][cat]
+            st.write(f"cat={cat}")
+            st.write(f"base_options exists={'base_options' in st.session_state}")
+            st.write(f"stock_data exists={'stock_data' in st.session_state}")
+            st.write(f"options={len(options)}")
+            st.write(f"current_stock={len(current_stock)}")
             default_selected = [item for item in options if item in current_stock]
 
             st.markdown(
