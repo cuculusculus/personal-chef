@@ -39,7 +39,11 @@ def render_stock_page_fragment():
 
     needs_save = False
 
-    for tab, cat, label in zip(tabs, categories, labels):
+    for tab, cat, label in zip(
+        tabs[:1],
+        categories[:1],
+        labels[:1]
+    ):
         with tab:
             options = sorted(list(set(st.session_state["base_options"][cat])))
             current_stock = st.session_state["stock_data"][cat]
