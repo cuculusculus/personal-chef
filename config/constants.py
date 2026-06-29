@@ -1,5 +1,5 @@
 # config/constants.py
-# --- ファイルパス ---
+# ファイルパス
 HISTORY_FILE = "data/recipe_history.json"
 FAVORITE_FILE = "data/favorite_recipes.json"
 INGREDIENTS_FILE = "data/my_ingredients.json"
