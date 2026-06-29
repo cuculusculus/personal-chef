@@ -18,7 +18,6 @@ st.set_page_config(
 
 # 1. セッションの初期化
 initialize_session()
-
 apply_styles()
 
 # 通常のルーティング
