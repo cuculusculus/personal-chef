@@ -47,7 +47,7 @@ def show_fridge_dialog(all_stock, seasonings_stock):
             )
             st.markdown(tags_html, unsafe_allow_html=True)
 
-
+    # 調味料を表示
     st.markdown("#### :material/air_freshener: 調味料")
     if seasonings_stock:
         # スタイルを適用したコンテナを作成
@@ -135,7 +135,7 @@ def render_recipe_page():
         mood = st.text_input(
             "具体的なテーマを入力",
             value=saved_theme if is_custom_theme else "",
-            placeholder="例：子供が喜ぶメニュー"
+            placeholder="例：辛くて旨いメニュー"
         )
     else:
         mood = selected_theme 
@@ -183,7 +183,7 @@ def render_recipe_page():
             update_recipe_logic()
             st.rerun()
     else:
-        # 横並び安定化CSS（このファイル内に1回だけ）
+        # 横並び安定化CSS
        st.markdown("""
        <style>
        div[data-testid="stHorizontalBlock"] {
