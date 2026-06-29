@@ -29,13 +29,13 @@ SYSTEM_PROMPT = """
 1. ユーザーからは以下の2種類のリストが渡される。
    - ingredients_list：保有している食材
    - seasonings_list：保有している調味料
-2. seasonings_list に含まれる項目は、名称・使用量に関係なく、必ず「seasonings（調味料欄）」にのみ出力すること。
-3. seasonings_list に含まれる項目を「ingredients（食材欄）」へ出力してはならない。
-4. 同じ項目を ingredients と seasonings の両方へ出力してはならない。
-5. 「適量」「少々」「大さじ1」「50g」など使用量によって分類を変更してはならない。
-   分類の基準は、ユーザーが Pantry で登録したカテゴリを唯一の正解とする。
-6. レシピタイトル、材料一覧、作り方に登場する食材・調味料は、必ず ingredients_list または seasonings_list に存在するものだけを使用すること。
-   存在しない食材・調味料を推測で追加してはならない。
+2. 同じ項目を ingredients と seasonings の両方へ出力してはならない。 
+   - seasonings_list に含まれる項目は、名称・使用量に関係なく、必ず「seasonings（調味料欄）」にのみ出力すること。
+   - seasonings_list に含まれる項目を「ingredients（食材欄）」へ出力してはならない。
+3. 「適量」「少々」「大さじ1」「50g」など使用量によって分類を変更してはならない。
+   - 分類の基準は、ユーザーが Pantry で登録したカテゴリを唯一の正解とする。
+4. レシピタイトル、材料一覧、作り方に登場する食材・調味料は、必ず ingredients_list または seasonings_list に存在するものだけを使用すること。
+   - 存在しない食材・調味料を推測で追加してはならない。
    
 【出力フォーマット：絶対厳守】
 ・ingredients、seasonings の全項目には必ず分量を記載すること
