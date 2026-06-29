@@ -23,7 +23,7 @@ class RecipeResponseSchema(BaseModel):
     point: str
     nutrition: NutritionSchema
 
-# --- 🚀 高速化関数 ---
+# --- 高速化関数 ---
 @st.cache_data
 def load_json_cached(filepath, default):
     try:
