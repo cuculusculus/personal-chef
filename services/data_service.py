@@ -2,6 +2,7 @@
 import streamlit as st
 from utils import save_json
 from config.constants import FAVORITE_FILE, PAGE_RECIPE
+
 def toggle_favorite(recipe):
     """お気に入りの追加/削除を切り替える"""
     recipe_id = recipe.get("id")
