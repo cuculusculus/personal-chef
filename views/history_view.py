@@ -1,12 +1,12 @@
 # views/history_view.py
 import streamlit as st
-
 from services.data_service import (
     toggle_favorite,
     delete_favorite,
     prepare_recipe_for_cooking
 )
 from views.recipe_helpers import render_saved_recipe_detail
+
 # ダイアログ
 @st.dialog(":material/menu_book: レシピ詳細")
 def show_recipe_detail_dialog(recipe, mode, idx=None, is_fav=False):
