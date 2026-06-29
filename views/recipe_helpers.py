@@ -14,7 +14,7 @@ def render_saved_recipe_detail(recipe, servings):
     
     ingredients_text = recipe.get("ingredients", "")
 
-    # まず正規化
+    # 正規化
     ingredients_text = (
         ingredients_text
         .replace("\\n", "\n")  # 文字列の \n 対策
