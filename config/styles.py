@@ -1,4 +1,4 @@
-# config/styles.py （不要なコードをすべて排除したクリーン版）
+# config/styles.py
 import streamlit as st
 
 APP_CSS = """
