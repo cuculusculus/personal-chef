@@ -4,9 +4,9 @@ import re
 from config.constants import INGREDIENTS_FILE, BASE_OPTIONS_FILE
 from utils import save_json
 
-# 単位リスト定義
+# 単位リスト定義(入力キーボードを出さない様に9項目以下に設定)
 #UNIT_LIST = ["g", "個", "ml", "枚", "本", "束", "房", "株" , "片" , "パック", "袋", "丁", "適量"]
-UNIT_LIST = ["g", "ml", "個", "本", "枚", "束", "房", "片" , "パック"]
+UNIT_LIST = ["g", "ml", "個", "本", "枚", "束", "房", "片" , "パック"] 
 
 @st.fragment
 def render_stock_page_fragment():
@@ -25,7 +25,6 @@ def render_stock_page_fragment():
     
 
     # タブ設定
-    #tabs = st.tabs(["🥩 肉類", "🐟 魚介類", "🥬 野菜類", "🍚 主食", "🥛 卵・乳製品・豆類", "🧂 調味料"])
     tabs = st.tabs([
     ":material/yakitori: 肉類", 
     ":material/set_meal: 魚介類", 
