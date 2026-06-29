@@ -68,16 +68,13 @@ def initialize_stock_data():
         data = raw_stock.get(cat, {})
 
         if isinstance(data, list):
-
             st.session_state["stock_data"][cat] = {
                 item: "1.0個"
                 for item in data
             }
         elif isinstance(data, dict):
-
             st.session_state["stock_data"][cat] = data
         else:
-
             st.session_state["stock_data"][cat] = {}
 
 def initialize_servings():
